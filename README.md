@@ -141,7 +141,7 @@ Ubah method pada abut di dalam class Controller page seperti berikut:
 
 ## Membuat Layout Header dan Footer 
 
-![Gambar Contact](Pict/view.png)
+![Gambar View](Pict/view.png)
 
 ### Header 
 ```
