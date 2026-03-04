@@ -12,7 +12,7 @@ Mata Kuliah : Pemrograman Web 2
 - Ubah nama direktory framework-4.x.xx menjadi ci4.
 - Buka browser dengan alamat http://localhost/lab11_ci/ci4/public/
 
-![Gambar Contact](Pict/instalasi.png)
+![Gambar Contact](Pict/Instalasi.png)
 
 
 ## Menjalankan CLI (Command Line Interface) 
