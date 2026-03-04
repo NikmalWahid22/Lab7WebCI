@@ -12,6 +12,8 @@ Mata Kuliah : Pemrograman Web 2
 - Ubah nama direktory framework-4.x.xx menjadi ci4.
 - Buka browser dengan alamat http://localhost/lab11_ci/ci4/public/
 
+![Gambar Contact](Pict/instalasi.png)
+
 
 ## Menjalankan CLI (Command Line Interface) 
 Codeigniter 4 menyediakan CLI untuk mempermudah proses development. Untuk mengakses
@@ -25,7 +27,7 @@ php spark
 
 ## Mengakftikan Mode Debugging 
 
-![Gambar Debug]()
+![Gambar Contact](Pict/environment.png)
 
 Untuk menampikan jenis error maka kita perlu mengaktikan mode debugging dengan mengubah nilai konfigurasi pada environment variable CI_ENVIRINMENT menjadi development. 
 
@@ -54,6 +56,9 @@ Untuk mengetahui route yg ditambakan sudah benar atau belum, buka CLI dan jalank
 ```
 php spark routes
 ```
+
+![Gambar Contact](Pict/page.png)
+
 
 ## Membuat Controller 
 
@@ -136,6 +141,8 @@ Ubah method pada abut di dalam class Controller page seperti berikut:
 
 ## Membuat Layout Header dan Footer 
 
+![Gambar Contact](Pict/view.png)
+
 ### Header 
 ```
 <!DOCTYPE html>
@@ -199,6 +206,8 @@ Lengkapi kode program untuk menu lainnya yang ada pada Controller Page, sehingga
 link pada navigasi header dapat menampilkan tampilan dengan layout yang sama.
 
 Jawaban: 
+
+![Gambar Contact](Pict/contact.png)
 
 - Buat File baru di dalam direktori (app/view) buat beberapa file yg dibutuhkan misalnya contact.php dan kemudian isi dengan berikut:
 
