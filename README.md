@@ -58,11 +58,221 @@ php spark routes
 ## Membuat Controller 
 
 ```
+<?php
 
+namespace App\Controllers;
+
+class Page extends BaseController
+{
+    public function about()
+    {
+        echo "Ini halaman About";
+    }
+
+    public function contact()
+    {
+        echo "Ini halaman Contact";
+    }
+
+    public function faqs()
+    {
+        echo "Ini halaman FAQ";
+    }
+}
 ```
 
 ## Membuat View 
 
+Buat File baru dengan nama about.php pada direktori (app/view/about.php)
+```
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title><?= $title; ?></title>
+    <link rel="stylesheet" href="<?= base_url('styles.css'); ?>">
+</head>
+<body>
 
+<?= $this->include('template/header.php'); ?>
+
+<h1><?= esc($title); ?></h1>
+<hr>
+<p><?= esc($content); ?></p>
+
+<?= $this->include('template/footer.php'); ?>
+
+</body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title><?= $title; ?></title>
+    <link rel="stylesheet" href="<?= base_url('styles.css'); ?>">
+</head>
+<body>
+
+
+<h1><?= esc($title); ?></h1>
+<hr>
+<p><?= esc($content); ?></p>
+
+
+</body>
+</html>
+```
+
+Ubah method pada abut di dalam class Controller page seperti berikut: 
+
+```
+ public function about()
+    {
+        return view('about', [
+            'title' => 'Halaman About',
+            'content' => 'Ini adalah halaman about yang menjelaskan tentang isi halaman ini.'
+        ]);
+    }
+```
+
+## Membuat Layout Header dan Footer 
+
+### Header 
+```
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title><?= $title; ?></title>
+    <link rel="stylesheet" href="<?= base_url('styles.css');?>">
+</head>
+<body>
+    <div id="container">
+        <header>
+            <h1>Layout Sederhana</h1>
+        </header>
+        <nav>
+            <a href="<?= base_url('/');?>" class="active">Home</a>
+            <a href="<?= base_url('/artikel');?>">Artikel</a>
+            <a href="<?= base_url('/about');?>">About</a>
+            <a href="<?= base_url('/contact');?>">Kontak</a>
+        </nav>
+<section id="wrapper">
+<section id="main">
+```
+
+### Footer 
+```
+</section>
+
+<aside id="sidebar">
+    <div class="widget-box">
+        <h3 class="title">Widget Header</h3>
+        <ul>
+            <li><a href="#">Widget Link</a></li>
+            <li><a href="#">Widget Link</a></li>
+        </ul>
+    </div>
+
+    <div class="widget-box">
+        <h3 class="title">Widget Text</h3>
+        <p>
+            Vestibulum lorem elit, iaculis in nisl volutpat,
+            malesuada tincidunt arcu.
+        </p>
+    </div>
+</aside>
+
+</section>
+
+<footer>
+    <p>&copy; 2021 - Universitas Pelita Bangsa</p>
+</footer>
+
+</div>
+</body>
+</html>
+```
+
+## Pertanyaan dan Tugas 
+
+Lengkapi kode program untuk menu lainnya yang ada pada Controller Page, sehingga semua
+link pada navigasi header dapat menampilkan tampilan dengan layout yang sama.
+
+Jawaban: 
+
+- Buat File baru di dalam direktori (app/view) buat beberapa file yg dibutuhkan misalnya contact.php dan kemudian isi dengan berikut:
+
+```
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title><?= $title; ?></title>
+    <link rel="stylesheet" href="<?= base_url('styles.css'); ?>">
+</head>
+<body>
+
+<?= $this->include('template/header.php'); ?>
+
+<h1><?= esc($title); ?></h1>
+<hr>
+<p><?= esc($content); ?></p>
+
+<?= $this->include('template/footer.php'); ?>
+
+</body>
+</html>
+```
+
+Kemudian ubah kode pada Controller Page
+
+```
+<?php
+
+namespace App\Controllers;
+
+class Page extends BaseController
+{
+    public function about()
+    {
+        return view('about', [
+            'title' => 'Halaman About',
+            'content' => 'Ini adalah halaman about yang menjelaskan tentang isi halaman ini.'
+        ]);
+    }
+
+    public function contact()
+    {
+        return view('contact', [
+            'title' => 'Halaman Contact',
+            'content' => 'Ini adalah halaman contact.'
+        ]);
+    }
+
+    public function artikel()
+    {
+        return view('artikel', [
+            'title' => 'Halaman Artikel',
+            'content' => 'Ini adalah halaman artikel.'
+        ]);
+    }
+
+    public function faqs()
+    {
+        return view('faqs', [
+            'title' => 'Halaman FAQ',
+            'content' => 'Ini adalah halaman FAQ.'
+        ]);
+    }
+
+    public function tos()
+    {
+        return view('tos', [
+            'title' => 'Halaman Term of Services',
+            'content' => 'Ini adalah halaman Term of Services.'
+        ]);
+    }
+}
+```
 
 
