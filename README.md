@@ -57,7 +57,7 @@ Untuk mengetahui route yg ditambakan sudah benar atau belum, buka CLI dan jalank
 php spark routes
 ```
 
-![Gambar Contact](Pict/page.png)
+![Gambar Contact](page.png)
 
 
 ## Membuat Controller 
@@ -141,7 +141,7 @@ Ubah method pada abut di dalam class Controller page seperti berikut:
 
 ## Membuat Layout Header dan Footer 
 
-![Gambar View](Pict/view.png)
+![Gambar View](view.png)
 
 ### Header 
 ```
