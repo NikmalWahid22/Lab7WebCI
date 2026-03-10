@@ -283,5 +283,33 @@ class Page extends BaseController
     }
 }
 ```
+# Pratikum 2 - Pemrograman Web 2 (Framework Lanjutan CRUD) 
+
+## Persiapan 
+Untuk memulai pratikum membuat aplikasi CRUD sederhana, yang perlu disiapkan adalah database srver menggunakan MySQL. Pastikan MySQL dan apache sudah aktif 
+
+## Membuat Database 
+Setelah membuat itu kita membuat database dengan nama lab_ci4 setelah itu kita membat tabel 
+
+## Koneksi Database 
+Selanjutnya membuat konfigurasi database untuk menghubungkan dengan database server. Konfigurasi dapat dilakukan menggunakan file .env 
+
+## Membuat Model 
+Selanjutnya adalah membuat model untuk memproses data Artikel. Buat File baru pada direktori app/Models dengan nama ArtikelModel.php 
+
+
+<?php
+namespace App\Models;
+
+use CodeIgniter\Model;
+
+class ArtikelModel extends Model
+{
+    protected $table = 'artikel';
+    protected $primaryKey = 'id';
+    protected $useAutoIncrement = true;
+    protected $allowedFields = ['judul', 'isi', 'status', 'slug',
+    'gambar'];
+}
 
 
