@@ -598,7 +598,56 @@ Tambahkan method baru pada controller dengan nama edit()
     }
 ```
 
+Membuat view edit dengan cara membuat file baru dengan nama form_edit.php 
+```
+<?= $this->include('template/admin_header'); ?>
 
+<h2><?= esc($title); ?></h2>
+
+<form action="" method="post">
+    
+    <?= csrf_field(); ?>
+
+    <p>
+        <input 
+            type="text" 
+            name="judul" 
+            value="<?= esc($data['judul']); ?>" 
+            required
+        >
+    </p>
+
+    <p>
+        <textarea 
+            name="isi" 
+            cols="50" 
+            rows="10"
+        ><?= esc($data['isi']); ?></textarea>
+    </p>
+
+    <p>
+        <input 
+            type="submit" 
+            value="Kirim" 
+            class="btn btn-large"
+        >
+    </p>
+
+</form>
+
+<?= $this->include('template/admin_footer'); ?>
+```
+## Menghapus Data 
+```
+public function delete($id)
+{
+    $artikel = new ArtikelModel();
+
+    $artikel->delete($id);
+
+    return redirect()->to('/admin/artikel');
+}
+```
 
 
 
