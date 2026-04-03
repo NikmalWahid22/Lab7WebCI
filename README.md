@@ -796,5 +796,10 @@ database dengan menambahkan tanggal agar dapat mengambil data artikel terbaru.
 improvisasi.
 
 - Apa manfaat utama dari penggunaan View Layout dalam pengembangan aplikasi?
-  View Layout adalah template utama (master page) yang digunakan untuk membungkus konten halaman agar konsisten di seluruh aplikasi.
+  
+  View Layout adalah template utama (master page) yang digunakan untuk membungkus konten halaman agar konsisten di seluruh aplikasi. Terdapat beberapa manfaat penggunaan view layout yaitu konsistensi UI/UX, Efisisnesi Development, Maintainability (Kemudahan Maintenance), Separation of Concerns (SoC), ntegrasi Komponen Lebih Mudah
+
+- Jelaskan perbedaan antara View Cell dan View biasa.
+
+  View Biasa adalah File tampilan yang hanya bertugas menampilkan data dari controller. Sedangkan View Cell adalah Komponen view yang memiliki logic sendiri (mini-controller) dan dapat mengambil data secara mandiri
 
