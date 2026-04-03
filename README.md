@@ -649,5 +649,152 @@ public function delete($id)
 }
 ```
 
+# Pratikum 3 - View Layout dan View Cell 
 
+Pratikum 3 menggunakan konsep View Layout dan View Cell untuk memudahkan dalam penggunaan layout. 
+
+### Membuat Layout utama 
+
+Buat folder layout di dalam app/views/, kemudian membuat file main.php di dalam folder layout dengan kode berikut. 
+
+```
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title><?= $title ?? 'My Website' ?></title>
+    <link rel="stylesheet" href="<?= base_url('styles.css'); ?>">
+</head>
+<body>
+    <div id="container">
+        
+        <header>
+            <h1>Layout Sederhana</h1>
+        </header>
+
+        <nav>
+            <a href="<?= base_url('/'); ?>" class="active">Home</a>
+            <a href="<?= base_url('/artikel'); ?>">Artikel</a>
+            <a href="<?= base_url('/about'); ?>">About</a>
+            <a href="<?= base_url('/contact'); ?>">Kontak</a>
+        </nav>
+
+        <section id="wrapper">
+            
+            <section id="main">
+                <?= $this->renderSection('content') ?>
+            </section>
+
+            <aside id="sidebar">
+                
+                <?= view_cell('App\\Cells\\ArtikelTerkini::show') ?>
+
+                <div class="widget-box">
+                    <h3 class="title">Widget Header</h3>
+                    <ul>
+                        <li><a href="#">Widget Link</a></li>
+                        <li><a href="#">Widget Link</a></li>
+                    </ul>
+                </div>
+
+                <div class="widget-box">
+                    <h3 class="title">Widget Text</h3>
+                    <p>
+                        Vestibulum lorem elit, iaculis in nisl volutpat,
+                        malesuada tincidunt arcu. Proin in leo fringilla,
+                        vestibulum mi porta, faucibus felis. Integer pharetra
+                        est nunc, nec pretium nunc pretium ac.
+                    </p>
+                </div>
+
+            </aside>
+
+        </section>
+
+        <footer>
+            <p>&copy; 2021 - Universitas Pelita Bangsa</p>
+        </footer>
+
+    </div>
+</body>
+</html> 
+```
+
+### Modifikasi File View 
+
+Ubah app/Views/home.php agar sesuai dengan layout baru 
+
+```
+<?= $this->extend('layout/main') ?>
+
+<?= $this->section('content') ?>
+
+<h1><?= $title; ?></h1>
+<hr>
+<p><?= $content; ?></p>
+
+<?= $this->endSection() ?>
+```
+
+### Menampilkan Data Dinamis dengan VIew Cell 
+
+View Cell adalah sebuah konsep untuk membuat komponen tampilan (view) yang bersifat modular, reusable, dan memiliki logika tersendiri tanpa harus membebani controller utama.
+
+### Membuat Class View Cell 
+
+Buat folder Cells di dalam app/, kemudian file ArtikelTerkini.php di dalam app/Cells dengan kode berikut.
+
+```
+<?php
+
+namespace App\Cells;
+
+use CodeIgniter\View\Cell;
+use App\Models\ArtikelModel;
+
+class ArtikelTerkini extends Cell
+{
+    public function render()
+    {
+        $model = new ArtikelModel();
+
+        $artikel = $model->orderBy('created_at', 'DESC')
+                         ->limit(5)
+                         ->findAll();
+
+        return view('components/artikel_terkini', [
+            'artikel' => $artikel
+        ]);
+    }
+}
+```
+
+### Membuat View untuk View Cell 
+
+Buat Folder components di dalam app/Views/, Kemudian buat file artikel_terkini.php di dalam app/Views/components dengan kode berikut: 
+
+```
+<h3>Artikel Terkini</h3>
+
+<ul>
+    <?php foreach ($artikel as $row): ?>
+        <li>
+            <a href="<?= base_url('/artikel/' . $row['slug']) ?>">
+                <?= $row['judul'] ?>
+            </a>
+        </li>
+    <?php endforeach; ?>
+</ul>
+```
+
+### Pertanyaan dan Tugas 
+
+- Sesuaikan data dengan praktikum sebelumnya, perlu melakukan perubahan field pada
+database dengan menambahkan tanggal agar dapat mengambil data artikel terbaru.
+
+- Selesaikan programnya sesuai Langkah-langkah yang ada. Anda boleh melakukan
+improvisasi.
+
+- Apa manfaat utama dari penggunaan View Layout dalam pengembangan aplikasi?
+  View Layout adalah template utama (master page) yang digunakan untuk membungkus konten halaman agar konsisten di seluruh aplikasi.
 
