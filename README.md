@@ -803,3 +803,246 @@ improvisasi.
 
   View Biasa adalah File tampilan yang hanya bertugas menampilkan data dari controller. Sedangkan View Cell adalah Komponen view yang memiliki logic sendiri (mini-controller) dan dapat mengambil data secara mandiri
 
+# Pratikum 4 - Framework Lanjutan (Modul Login)
+
+Pada pratikum 4 ini akan membuat modul login, hal yang perlu disiapkan adalah database server menggunakan MySQL. 
+
+### Membuat Tabel User 
+
+```
+CREATE TABLE user (
+    id INT(11) auto_increment,
+    username VARCHAR(200) NOT NULL,
+    useremail VARCHAR(200),
+    userpassword VARCHAR(200),
+    PRIMARY KEY(id)
+);
+```
+
+### Membuat Model User 
+
+```
+<?php
+
+namespace App\Models;
+
+use CodeIgniter\Model;
+
+class UserModel extends Model
+{
+    protected $table = 'user';
+    protected $primaryKey = 'id';
+    protected $useAutoIncrement = true;
+    protected $allowedFields = ['username', 'useremail', 'userpassword'];
+}
+```
+### Membuat Controller User
+
+Langkah Selanjutnya membuat Controller baru dengan nama User.php pada direktori app/controllers. Kemudian tambahkan method index() untuk menampilkan daftar user dan method login() untuk proses login. 
+
+```
+<?php
+namespace App\Controllers;
+
+use App\Models\UserModel;
+
+class User extends BaseController
+{
+    public function index()
+    {
+        $title = 'Daftar User';
+        $model = new UserModel();
+        $users = $model->findAll();
+
+        return view('user/index', compact('users', 'title'));
+    }
+
+    public function login()
+    {
+        helper(['form']);
+
+        $email = $this->request->getPost('email');
+        $password = $this->request->getPost('password');
+
+        if (!$email) {
+            return view('/login');
+        }
+
+        $session = session();
+        $model = new UserModel();
+        $login = $model->where('useremail', $email)->first();
+
+        if ($login) {
+            $pass = $login['userpassword'];
+
+            if (password_verify($password, $pass)) {
+                $login_data = [
+                    'user_id' => $login['id'],
+                    'user_name' => $login['username'],
+                    'user_email' => $login['useremail'],
+                    'logged_in' => TRUE,
+                ];
+
+                $session->set($login_data);
+
+                return redirect()->to('admin/artikel');
+            } else {
+                $session->setFlashdata("flash_msg", "Password salah.");
+                return redirect()->to('/login');
+            }
+        } else {
+            $session->setFlashdata("flash_msg", "Email tidak terdaftar.");
+            return redirect()->to('/user/login');
+        }
+    }
+}
+```
+
+### Membuat View Login 
+
+Pada direktori app/views buat file baru dengan nama login.php 
+
+```
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title><?= $title ?? 'My Website' ?></title>
+    <link rel="stylesheet" href="<?= base_url('styles.css'); ?>">
+</head>
+<body>
+    <div id="container">
+        
+        <header>
+            <h1>Layout Sederhana</h1>
+        </header>
+
+        <nav>
+            <a href="<?= base_url('/'); ?>" class="active">Home</a>
+            <a href="<?= base_url('/artikel'); ?>">Artikel</a>
+            <a href="<?= base_url('/about'); ?>">About</a>
+            <a href="<?= base_url('/contact'); ?>">Kontak</a>
+        </nav>
+
+        <section id="wrapper">
+            
+            <section id="main">
+                <?= $this->renderSection('content') ?>
+            </section>
+
+            <aside id="sidebar">
+                
+                <?= view_cell('App\\Cells\\ArtikelTerkini::show') ?>
+
+                <div class="widget-box">
+                    <h3 class="title">Widget Header</h3>
+                    <ul>
+                        <li><a href="#">Widget Link</a></li>
+                        <li><a href="#">Widget Link</a></li>
+                    </ul>
+                </div>
+
+                <div class="widget-box">
+                    <h3 class="title">Widget Text</h3>
+                    <p>
+                        Vestibulum lorem elit, iaculis in nisl volutpat,
+                        malesuada tincidunt arcu. Proin in leo fringilla,
+                        vestibulum mi porta, faucibus felis. Integer pharetra
+                        est nunc, nec pretium nunc pretium ac.
+                    </p>
+                </div>
+
+            </aside>
+
+        </section>
+
+        <footer>
+            <p>&copy; 2021 - Universitas Pelita Bangsa</p>
+        </footer>
+
+    </div>
+</body>
+</html> 
+```
+
+### Membuat Database Seeder
+
+Dalam konteks pengembangan aplikasi (terutama pada framework seperti CodeIgniter), Database Seeder adalah mekanisme untuk mengisi database dengan data awal (dummy atau default) secara otomatis. Untuk mengaktifkan database seeder kita perlu membuka CLI dan menulis kan perintah sebagai berikut ```php spark make:seeder UserSeeder```
+
+Langkah Selanjutnya adalah mengisi file UserSeeder.php yang berada di lokasi direktori, lalu isi dengan kode berikut. 
+
+```
+<?php
+
+namespace App\Database\Seeds;
+
+use CodeIgniter\Database\Seeder;
+use App\Models\UserModel;
+
+class UserSeeder extends Seeder
+{
+    public function run()
+    {
+        $model = new UserModel();
+
+        $model->insert([
+            'username'     => 'admin',
+            'useremail'    => 'admin@email.com',
+            'userpassword' => password_hash('admin123', PASSWORD_DEFAULT),
+        ]);
+    }
+}
+```
+
+Setelah kita mengisi file UserSeeds dengan kode tersebut langkah selanjutnya adalah kembali membuka CLI dan ketik perintah berikut: 
+
+```
+php spark db:seed UserSeeder
+```
+
+### Menambahkan Auth Filter 
+
+```
+<?php
+
+namespace App\Filters;
+
+use CodeIgniter\HTTP\RequestInterface;
+use CodeIgniter\HTTP\ResponseInterface;
+use CodeIgniter\Filters\FilterInterface;
+
+class Auth implements FilterInterface
+{
+    public function before(RequestInterface $request, $arguments = null)
+    {
+        // jika user belum login
+        if (!session()->get('logged_in')) {
+            // maka redirect ke halaman login
+            return redirect()->to('/user/login');
+        }
+    }
+
+    public function after(RequestInterface $request, ResponseInterface $response, $arguments = null)
+    {
+        // Do something here
+    }
+}
+```
+
+Selanjutnya buka file app/Config/Filter.php tambahkan kode ini 
+
+```
+'auth' => App\Filters\Auth::class
+```
+
+### Percobaan Akses Menu Admin 
+
+### Fungai Logout
+
+```
+public function logout()
+{
+    session()->destroy();
+    return redirect()->to('/user/login');
+}
+```
