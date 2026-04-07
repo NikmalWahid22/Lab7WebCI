@@ -1,4 +1,4 @@
-<img width="960" height="473" alt="image" src="https://github.com/user-attachments/assets/d3bee8f6-44f9-40bb-9e2b-2e4345cc5260" /># Pratikum 1 - Pemrograman Web 2 (Instalasi Code Igniter)
+# Pratikum 1 - Pemrograman Web 2 (Instalasi Code Igniter)
 
 Nama : Muhamad Nikmal Wahid 
 NIM : 312410372 
