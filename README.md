@@ -1,4 +1,4 @@
-# Pratikum 1 - Pemrograman Web 2 (Instalasi Code Igniter)
+<img width="960" height="473" alt="image" src="https://github.com/user-attachments/assets/d3bee8f6-44f9-40bb-9e2b-2e4345cc5260" /># Pratikum 1 - Pemrograman Web 2 (Instalasi Code Igniter)
 
 Nama : Muhamad Nikmal Wahid 
 NIM : 312410372 
@@ -294,6 +294,8 @@ Setelah membuat itu kita membuat database dengan nama lab_ci4 setelah itu kita m
 ## Koneksi Database 
 Selanjutnya membuat konfigurasi database untuk menghubungkan dengan database server. Konfigurasi dapat dilakukan menggunakan file .env 
 
+![Gambar 1](Pict2/envdb.png)
+
 ## Membuat Model 
 Selanjutnya adalah membuat model untuk memproses data Artikel. Buat File baru pada direktori app/Models dengan nama ArtikelModel.php 
 
@@ -376,7 +378,12 @@ Membuat direktori baru dengan nama artikel pada direktori app/views, kemudian bu
 
 <?= $this->include('template/footer'); ?>
 ```
+
+![Gambar 2](Pict2/artikelnodata.png) 
+
 Selanjutnya kita akan menambah beberapa data pada database agar dapat ditampilkan datanya. 
+
+![Gambar 3](Pict2/daftarartikel.png)
 
 ## Membuat Tampilan detail Artikel 
 
@@ -414,6 +421,7 @@ Tampilan pada saat judul berita di klik maka akan diarahkan ke halaman yg berbed
 
 <?= $this->include('template/footer'); ?> 
 ```
+![Gambar 4](Pict2/detailartikel.png)
 
 ## Membuat Routing untuk artikel detail 
 Membuat routing tambahan untuk artikel detail 
@@ -499,6 +507,8 @@ $routes->group('admin', function($routes) {
 });
 ```
 
+![Gambar 5](Pict2/adminpage.png)
+
 ## Menambah Data Artikel 
 
 ```
@@ -553,6 +563,8 @@ Kemudian agar bisa melihat form tambah kita harus membuat file baru bernama form
 </form>
 <?= $this->include('template/admin_footer'); ?>
 ```
+
+![Gambar 6](Pict2/tambahartikel.png)
 
 ## Mengubah Data 
 Tambahkan method baru pada controller dengan nama edit()
@@ -637,6 +649,8 @@ Membuat view edit dengan cara membuat file baru dengan nama form_edit.php
 
 <?= $this->include('template/admin_footer'); ?>
 ```
+![Gambar 7](Pict2/editartikel.png)
+
 ## Menghapus Data 
 ```
 public function delete($id)
@@ -648,6 +662,14 @@ public function delete($id)
     return redirect()->to('/admin/artikel');
 }
 ```
+
+## Pernyataan dan Tugas
+
+Selesaikan programnya sesuai Langkah-langkah yang ada. Anda boleh melakukan improvisasi.
+
+![Gambar 8](Pict2/improv.png)
+
+Improvisasi yang saya lakukan adalah menambahkan total artikel serta fitur search agar memudahkan dalam mencari artikel
 
 # Pratikum 3 - View Layout dan View Cell 
 
@@ -787,10 +809,14 @@ Buat Folder components di dalam app/Views/, Kemudian buat file artikel_terkini.p
 </ul>
 ```
 
+![Gambar 9](Pict3-4/home.png)
+
 ### Pertanyaan dan Tugas 
 
 - Sesuaikan data dengan praktikum sebelumnya, perlu melakukan perubahan field pada
 database dengan menambahkan tanggal agar dapat mengambil data artikel terbaru.
+
+![Gambar 10](Pict3-4/home.png)
 
 - Selesaikan programnya sesuai Langkah-langkah yang ada. Anda boleh melakukan
 improvisasi.
@@ -805,7 +831,7 @@ improvisasi.
 
 # Pratikum 4 - Framework Lanjutan (Modul Login)
 
-Pada pratikum 4 ini akan membuat modul login, hal yang perlu disiapkan adalah database server menggunakan MySQL. 
+Pada pratikum 4 ini akan membuat modul login, hal yang perlu disiapkan adalah database  menggunakan MySQL. 
 
 ### Membuat Tabel User 
 
@@ -994,6 +1020,8 @@ class UserSeeder extends Seeder
 }
 ```
 
+![Gambar 11](Pict3-4/login.png)
+
 Setelah kita mengisi file UserSeeds dengan kode tersebut langkah selanjutnya adalah kembali membuka CLI dan ketik perintah berikut: 
 
 ```
@@ -1036,6 +1064,8 @@ Selanjutnya buka file app/Config/Filter.php tambahkan kode ini
 ```
 
 ### Percobaan Akses Menu Admin 
+
+![Gambar 12](Pict3-4/login.png)
 
 ### Fungai Logout
 
