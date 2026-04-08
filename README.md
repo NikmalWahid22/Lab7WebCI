@@ -1076,3 +1076,54 @@ public function logout()
     return redirect()->to('/user/login');
 }
 ```
+
+# Pratikum 5: Pagination dan Pencarian 
+
+## Langkah-langkah pratikum 
+
+### Membuat pagination 
+
+Pagination adalah suatu teknik dalam pengembangan aplikasi yang digunakan untuk membagi data dalam jumlah besar menjadi beberapa bagian atau halaman yang lebih kecil. Teknik ini sangat umum digunakan pada aplikasi berbasis web maupun mobile, terutama ketika sistem harus menampilkan data dalam jumlah banyak seperti daftar artikel, produk, atau pengguna.
+
+Tujuan dan fungsi pagination 
+1. Meningkatkan Performa Aplikasi
+2. Mengurangi Waktu Loading
+3. Mempermudah Navigasi Data
+4. Meningkatkan Kerapihan Tampilan
+5. Efisiensi Penggunaan Sumber Daya
+
+Untuk membuat pagination kita perlu membuka kembali Controller Artikel kemudian modikasi kode pada method admin_index 
+```
+    public function admin_index()
+    {
+        $title = 'Daftar Artikel';
+        $model = new ArtikelModel();
+        $data = [
+        'title' => $title,
+        'artikel' => $model->paginate(10), #data dibatasi 10 record
+        per halaman
+        'pager' => $model->pager,
+        ];
+        return view('artikel/admin_index', $data);
+    }
+```
+Kemudian buka file views/artikel/admin_index.php dan tambahkan kode berikut
+dibawah deklarasi tabel data.
+```
+<?= $pager->links(); ?>
+```
+
+### Membuat Pencarian 
+
+Pencarian (Search) adalah fitur yang digunakan untuk menemukan data tertentu berdasarkan kata kunci (keyword) yang dimasukkan oleh pengguna. Fitur ini biasanya terintegrasi dengan database untuk memfilter data sesuai dengan input pengguna.
+
+Tujuan Dan Fungsi Pencarian 
+1. Mempercepat Proses Pencarian Data
+2. Meningkatkan Efisiensi Penggunaan Aplikasi
+3. Meningkatkan Pengalaman Pengguna
+4. Mempermudah Akses Informasi Spesifik
+5. Mendukung Pengumpulan Aplikasi
+
+
+
+
