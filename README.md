@@ -1124,6 +1124,91 @@ Tujuan Dan Fungsi Pencarian
 4. Mempermudah Akses Informasi Spesifik
 5. Mendukung Pengumpulan Aplikasi
 
+Untuk membuat search kita perlu menambahkan kode pada admin_index.php 
+```
+<form method="get" class="admin-search">
+    <input type="text" name="q" placeholder="Cari artikel...">
+    <button type="submit" class="btn">Cari</button>
+</form>
+```
 
+Dan Ubah Link Pager menjadi seperti ini 
+```
+<?= $pager->only(['q'])->links(); ?>
+```
 
+## Pertanyaan dan Tugas 
 
+Selesaikan programnya sesuai Langkah-langkah yang ada. Anda boleh melakukan improvisasi.
+
+## Improvivasi 
+
+Mengubah Sedikit Controller karena sebelumnya sudah ditambahkan total artikel pada program. Proses pencarian dilakukan dengan mengambil input pengguna melalui parameter HTTP GET, kemudian memfilter data menggunakan metode like() sehingga hanya data yang sesuai dengan kata kunci yang ditampilkan. Selanjutnya, pagination diterapkan menggunakan metode paginate() untuk membatasi jumlah data yang ditampilkan per halaman, sehingga sistem hanya memuat sebagian data sesuai kebutuhan dan mengurangi beban server. Selain itu, jumlah total data dihitung menggunakan countAll() untuk keseluruhan data atau countAllResults() ketika pencarian aktif, sehingga informasi yang ditampilkan tetap akurat dan relevan. Integrasi antara searching dan pagination memungkinkan data yang telah difilter tetap dibagi ke dalam beberapa halaman secara dinamis, sehingga meningkatkan performa sistem sekaligus memberikan pengalaman pengguna yang lebih baik, terstruktur, dan mudah dalam menavigasi data.
+
+```
+public function admin_index()
+    {
+        $model = new ArtikelModel();
+        $q = $this->request->getGet('q');
+
+        if ($q) {
+            $model->like('judul', $q);
+        }
+
+        $artikel = $model->paginate(2);
+        $pager = $model->pager;
+
+        // total sesuai kondisi
+        if ($q) {
+            $total = $model->like('judul', $q)->countAllResults();
+        } else {
+            $total = $model->countAll();
+        }
+
+        return view('artikel/admin_index', [
+            'title'   => 'Daftar Artikel',
+            'artikel' => $artikel,
+            'pager'   => $pager,
+            'total'   => $total,
+            'q'       => $q
+        ]);
+    }
+```
+## Menambahkan Custom_Pagination.php 
+
+Menambahkan custom_pagination pada program bertujuan agar memudahkan dalam memodifikasi tampilan pagination. Untuk membuat custom_pagination.php kita harus membuat folder Pager pada direktori Views, lalu isi dengan kode ini 
+
+```
+<ul class="pagination-custom">
+    <?php foreach ($pager->links() as $link) : ?>
+        <li class="<?= $link['active'] ? 'active' : '' ?>">
+            <a href="<?= $link['uri'] ?>">
+                <?= $link['title'] ?>
+            </a>
+        </li>
+    <?php endforeach ?>
+</ul>
+```
+CSS
+```
+.pagination-custom {
+    list-style: none;
+    display: flex;
+    gap: 8px;
+    padding: 0;
+    margin-top: 30px;
+}
+
+.pagination-custom li a {
+    padding: 6px 12px;
+    background: #eee;
+    text-decoration: none;
+    border-radius: 6px;
+    color: black;
+}
+
+.pagination-custom li.active a {
+    background: #007bff;
+    color: white;
+}
+```
