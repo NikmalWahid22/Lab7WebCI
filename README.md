@@ -1137,7 +1137,7 @@ Dan Ubah Link Pager menjadi seperti ini
 <?= $pager->only(['q'])->links(); ?>
 ```
 
-![Gambar 13](Pict3-4/SearchandPagination.png)
+![Gambar 13](Pict3-4/Searchandpagination.png)
 
 ## Pertanyaan dan Tugas 
 
@@ -1215,4 +1215,4 @@ CSS
 }
 ```
 
-![Gambar 14](Pict3-4/SearchandPagination.png)
+![Gambar 14](Pict3-4/Searchandpagination.png)
