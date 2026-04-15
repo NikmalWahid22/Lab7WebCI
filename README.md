@@ -1137,6 +1137,8 @@ Dan Ubah Link Pager menjadi seperti ini
 <?= $pager->only(['q'])->links(); ?>
 ```
 
+![Gambar 13](Pict3-4/SearchandPagination.png)
+
 ## Pertanyaan dan Tugas 
 
 Selesaikan programnya sesuai Langkah-langkah yang ada. Anda boleh melakukan improvisasi.
@@ -1212,3 +1214,5 @@ CSS
     color: white;
 }
 ```
+
+![Gambar 14](Pict3-4/SearchandPagination.png)
