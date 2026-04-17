@@ -1754,16 +1754,97 @@ Penjelasan:
 ### 8. Testing 
 Lakukan uji coba untuk memastikan semua fungsi berjalan dengan baik:
 - Menampilkan daftar artikel dengan nama kategori.
+
+![Gambar 15](Pict3-4/readkategori.png)
+
 - Menambah artikel baru dengan memilih kategori.
+
+![Gambar 16](Pict3-4/form_add.png)
+
+![Gambar 17](Pict3-4/addartikel.png)
+
 - Mengedit artikel dan mengubah kategorinya.
+
+ ![Gambar 18](Pict3-4/editkategori.png)
+
 - Menghapus artikel
+  
 
 
 ### 9. Pertanyaan dan Tugas
 1. Selesaikan semua langkah praktikum di atas.
 2. Modifikasi tampilan detail artikel (artikel/detail.php) untuk menampilkan nama kategori artikel.
-3. Tambahkan fitur untuk menampilkan daftar kategori di halaman depan (opsional).
-4. Buat fungsi untuk menampilkan artikel berdasarkan kategori tertentu (opsional).
+
+   ```
+       <?= $this->include('template/header'); ?> 
+    <article class="entry">
+        <h2><?= esc($artikel['judul']); ?></h2>
+    
+        <p>
+            <b>Kategori:</b> <?= esc($artikel['nama_kategori'] ?? 'Tidak ada'); ?>
+        </p>
+    
+        <img 
+            src="<?= base_url('/gambar/' . $artikel['gambar']); ?>" 
+            alt="<?= esc($artikel['judul']); ?>"
+        >
+    
+        <p><?= esc($artikel['isi']); ?></p>
+    </article>
+    
+    <?= $this->include('template/footer'); ?>
+   ```
+
+- ![Gambar 19](Pict3-4/detailkategori.png)
+
+4. Tambahkan fitur untuk menampilkan daftar kategori di halaman depan (opsional).
+
+   ```
+       <?= $this->include('template/header'); ?>
+    
+    <?php if ($artikel): ?>
+    
+        <?php foreach ($artikel as $row): ?>
+    
+            <article class="entry">
+                <h2>
+                    <a href="<?= base_url('/artikel/' . $row['slug']); ?>">
+                        <?= esc($row['judul']); ?>
+                    </a>
+                </h2>
+    
+                <p>
+                    Kategori: <?= esc($row['nama_kategori']); ?>
+                </p>
+    
+                <img 
+                    src="<?= base_url('/gambar/' . $row['gambar']); ?>" 
+                    alt="<?= esc($row['judul']); ?>"
+                >
+    
+                <p>
+                    <?= esc(substr($row['isi'], 0, 200)); ?>...
+                </p>
+            </article>
+    
+            <hr class="divider" />
+    
+        <?php endforeach; ?>
+    
+    <?php else: ?>
+    
+        <article class="entry">
+            <h2>Belum ada data.</h2>
+        </article>
+    
+    <?php endif; ?>
+    
+    <?= $this->include('template/footer'); ?>
+   ```
+
+- ![Gambar 20](Pict3-4/kategori.png)
+
+6. Buat fungsi untuk menampilkan artikel berdasarkan kategori tertentu (opsional).
 
 
 
