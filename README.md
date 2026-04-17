@@ -1753,8 +1753,17 @@ Penjelasan:
 
 ### 8. Testing 
 Lakukan uji coba untuk memastikan semua fungsi berjalan dengan baik:
-• Menampilkan daftar artikel dengan nama kategori.
-• Menambah artikel baru dengan memilih kategori.
-• Mengedit artikel dan mengubah kategorinya.
-• Menghapus artike
+- Menampilkan daftar artikel dengan nama kategori.
+- Menambah artikel baru dengan memilih kategori.
+- Mengedit artikel dan mengubah kategorinya.
+- Menghapus artikel
+
+
+### 9. Pertanyaan dan Tugas
+1. Selesaikan semua langkah praktikum di atas.
+2. Modifikasi tampilan detail artikel (artikel/detail.php) untuk menampilkan nama kategori artikel.
+3. Tambahkan fitur untuk menampilkan daftar kategori di halaman depan (opsional).
+4. Buat fungsi untuk menampilkan artikel berdasarkan kategori tertentu (opsional).
+
+
 
