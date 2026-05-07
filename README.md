@@ -1846,10 +1846,24 @@ Lakukan uji coba untuk memastikan semua fungsi berjalan dengan baik:
 
 6. Buat fungsi untuk menampilkan artikel berdasarkan kategori tertentu (opsional).
 
-# Pratikum 7: Upload Gambar File 
-## Upload gambar pada artikel 
-Menambahkan fungsi upload gambar pada program. Untuk menambahkannya buka kembali Controller Artikel pada, sesuaikan kode pada method add seperti berikut:
-```
+# 📷 Praktikum 7 — Upload Gambar File
+
+## Daftar Isi
+
+- [Upload Gambar pada Artikel](#upload-gambar-pada-artikel)
+- [Hasil](#hasil)
+- [Pertanyaan dan Tugas](#pertanyaan-dan-tugas)
+  - [1. Upload Gambar pada Form Edit](#1-upload-gambar-pada-form-edit)
+  - [2. Menampilkan Gambar pada Tabel](#2-menampilkan-gambar-pada-tabel)
+
+---
+
+## Upload Gambar pada Artikel
+
+Menambahkan fungsi upload gambar pada program. Buka kembali **Controller Artikel**, lalu sesuaikan kode pada method `add()` seperti berikut:
+
+**`app/Controllers/Artikel.php` — method `add()`**
+```php
 public function add()
 {
     // Validasi data
@@ -1877,7 +1891,7 @@ public function add()
             'isi'    => $this->request->getPost('isi'),
             'slug'   => url_title(
                 $this->request->getPost('judul'),
-                '-', 
+                '-',
                 true
             ),
             'gambar' => $file->getName(),
@@ -1891,129 +1905,156 @@ public function add()
     return view('artikel/form_add', compact('title'));
 }
 ```
-Kemudian tambahkan kode berikut pada file views/artikel/form_add.php
-```
+
+Kemudian tambahkan field input file pada view form tambah artikel:
+
+**`app/Views/artikel/form_add.php`**
+```html
 <p>
     <input type="file" name="gambar">
 </p>
 ```
-Setelah itu kita menyesuaikan tag form dengan menambahkan ecrypt type seperti berikut: 
-```
+
+Sesuaikan tag `<form>` dengan menambahkan `enctype` agar bisa mengirim file:
+
+```html
 <form action="" method="post" enctype="multipart/form-data">
 ```
 
-## Hasil
-![Gambar 21](Pict3-4/tambahgambar.png)
+> ⚠️ **Penting:** Atribut `enctype="multipart/form-data"` wajib ada agar browser dapat mengirim file bersama data form.
 
+---
+
+## Hasil
+
+![Tambah Gambar](Pict3-4/tambahgambar.png)
+
+---
 
 ## Pertanyaan dan Tugas
-Selesaikan programnya sesuai Langkah-langkah yang ada. Anda boleh melakukan improvisasi.
 
-### Menambahkan upload gambar pada form edit.
-- Langkah-langkah nya adalah dengan mengubah terlebih dahulu public function edit menjadi seperti berikut:
-```
- public function edit($id)
-    {
-        $model = new ArtikelModel();
-        $kategoriModel = new KategoriModel();
+Selesaikan program sesuai langkah-langkah yang ada. Diperbolehkan melakukan improvisasi.
 
-        $artikel = $model->find($id);
+---
 
-        if (!$artikel) {
-            throw new \CodeIgniter\Exceptions\PageNotFoundException("Data tidak ditemukan");
-        }
+### 1. Upload Gambar pada Form Edit
 
-        $validation = \Config\Services::validation();
+Langkah pertama adalah mengubah method `edit()` pada Controller Artikel agar mendukung upload gambar baru sekaligus menghapus gambar lama secara otomatis.
 
-        $validation->setRules([
-            'judul' => 'required'
-        ]);
+**`app/Controllers/Artikel.php` — method `edit()`**
+```php
+public function edit($id)
+{
+    $model         = new ArtikelModel();
+    $kategoriModel = new KategoriModel();
 
-        $isDataValid = $validation
-            ->withRequest($this->request)
-            ->run();
+    $artikel = $model->find($id);
 
-        if ($isDataValid)
-        {
-            $file = $this->request->getFile('gambar');
-
-            // default gambar lama
-            $namaGambar = $artikel['gambar'];
-
-            // kalau upload gambar baru
-            if ($file && $file->isValid() && !$file->hasMoved()) {
-
-                $namaGambar = $file->getRandomName();
-                $file->move(ROOTPATH . 'public/gambar', $namaGambar);
-
-                // hapus gambar lama
-                if (!empty($artikel['gambar']) &&
-                    file_exists(ROOTPATH . 'public/gambar/' . $artikel['gambar'])) {
-                    unlink(ROOTPATH . 'public/gambar/' . $artikel['gambar']);
-                }
-            }
-
-            $model->update($id, [
-                'judul'       => $this->request->getPost('judul'),
-                'isi'         => $this->request->getPost('isi'),
-                'id_kategori' => $this->request->getPost('id_kategori'),
-                'gambar'      => $namaGambar,
-                'slug'        => url_title(
-                    $this->request->getPost('judul'),
-                    '-',
-                    true
-                ),
-            ]);
-
-            return redirect()->to('/admin/artikel');
-        }
-
-        return view('artikel/form_edit', [
-            'title'    => 'Edit Artikel',
-            'artikel'  => $artikel,
-            'kategori' => $kategoriModel->findAll()
-        ]);
+    if (!$artikel) {
+        throw new \CodeIgniter\Exceptions\PageNotFoundException("Data tidak ditemukan");
     }
+
+    $validation = \Config\Services::validation();
+    $validation->setRules([
+        'judul' => 'required'
+    ]);
+
+    $isDataValid = $validation
+        ->withRequest($this->request)
+        ->run();
+
+    if ($isDataValid) {
+        $file = $this->request->getFile('gambar');
+
+        // Gunakan gambar lama sebagai default
+        $namaGambar = $artikel['gambar'];
+
+        // Jika ada gambar baru yang diupload
+        if ($file && $file->isValid() && !$file->hasMoved()) {
+
+            $namaGambar = $file->getRandomName();
+            $file->move(ROOTPATH . 'public/gambar', $namaGambar);
+
+            // Hapus gambar lama dari server
+            if (!empty($artikel['gambar']) &&
+                file_exists(ROOTPATH . 'public/gambar/' . $artikel['gambar'])) {
+                unlink(ROOTPATH . 'public/gambar/' . $artikel['gambar']);
+            }
+        }
+
+        $model->update($id, [
+            'judul'       => $this->request->getPost('judul'),
+            'isi'         => $this->request->getPost('isi'),
+            'id_kategori' => $this->request->getPost('id_kategori'),
+            'gambar'      => $namaGambar,
+            'slug'        => url_title(
+                $this->request->getPost('judul'),
+                '-',
+                true
+            ),
+        ]);
+
+        return redirect()->to('/admin/artikel');
+    }
+
+    return view('artikel/form_edit', [
+        'title'    => 'Edit Artikel',
+        'artikel'  => $artikel,
+        'kategori' => $kategoriModel->findAll()
+    ]);
+}
 ```
-- Setelah itu kita menambahkan field upload gambar terbaru pada form_edit.php
+
+Kemudian tambahkan tampilan gambar lama dan field upload gambar baru pada view form edit:
+
+**`app/Views/artikel/form_edit.php`**
+```html
+<p>
+    <label>Gambar Lama</label><br>
+    <?php if (!empty($artikel['gambar'])): ?>
+        <img src="<?= base_url('gambar/' . $artikel['gambar']); ?>" width="150">
+    <?php else: ?>
+        Tidak ada gambar
+    <?php endif; ?>
+</p>
+
+<p>
+    <label>Ganti Gambar</label><br>
+    <input type="file" name="gambar">
+</p>
+
+<p>
+    <input type="submit" value="Update" class="btn btn-large">
+</p>
 ```
- <p>
-        <label>Gambar Lama</label><br>
 
-        <?php if (!empty($artikel['gambar'])): ?>
-            <img src="<?= base_url('gambar/' . $artikel['gambar']); ?>" width="150">
-        <?php else: ?>
-            Tidak ada gambar
-        <?php endif; ?>
+> 💡 **Catatan:** Jika pengguna tidak memilih gambar baru, sistem akan tetap menggunakan gambar lama. Gambar lama akan otomatis dihapus dari server saat diganti dengan gambar baru.
 
-    </p>
+![Edit Gambar](Pict3-4/editgambar.png)
 
-    <p>
-        <label>Ganti Gambar</label><br>
-        <input type="file" name="gambar">
-    </p>
+---
 
-    <p>
-        <input type="submit" value="Update" class="btn btn-large">
-    </p>
-```
+### 2. Menampilkan Gambar pada Tabel
 
-![Gambar 22](Pict3-4/editgambar.png)
+Agar gambar yang sudah ditambahkan atau diedit bisa ditampilkan di halaman daftar artikel, tambahkan kolom `<td>` berikut pada tabel:
 
-### Menampilkan gambar pada tabel 
-
-Agar kita bisa melihat gambar yang sudah kita tambahkan/edit kita perlu menambahkan tag `td` pada kolom tabel 
-```
+**`app/Views/artikel/index.php` (bagian tabel)**
+```html
 <td>
-    <img 
-        src="<?= base_url('gambar/' . $row['gambar']); ?>" 
+    <img
+        src="<?= base_url('gambar/' . $row['gambar']); ?>"
         width="80"
         height="60"
-        style="object-fit:cover; border-radius:5px;"
+        style="object-fit: cover; border-radius: 5px;"
     >
 </td>
 ```
-![Gambar 23](Pict3-4/gambar.png)
+
+![Tampil Gambar di Tabel](Pict3-4/gambar.png)
+
+---
+
+*Laporan Praktikum 7 — Upload Gambar File | Pemrograman Web*
 
 
 # Pratikum 8: AJAX
