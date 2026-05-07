@@ -1217,37 +1217,84 @@ CSS
 
 ![Gambar 14](Pict3-4/Searchandpagination.png) 
 
-# Pratikum 6 
-
-## Relasi Tabel dan Query Builder 
-
-Pratikum ini merupakan tahap lanjutan dari pembelajaran sebelumnya yang berfokus pada penguatan pemahaman terhadap arsitektur aplikasi berbasis MVC (Model-View-Controller), khususnya pada aspek pengelolaan data menggunakan Model, Implementasi relasi antar tabel, serta pemanfaatan Query builder dalam framework CodeIgniter 4. Pendekatan ini bertujuan untuk meningkatkan efisiensi dan skalabilitas dalam pengembangan aplikasi berbasis database.
-
-## 1. Model Dalam CodeIgniter. 
-
-Model merupakan komponen inti dalam pola arsitektur MVC yang berfungsi sebagai lapisan penghubung antara aplikasi dan database. Melalui Model, seluruh operasi terhadap data seperti proses pengambilan (retrieve), penyimpanan (insert), pembaruan (update), dan penghapusan (delete) dapat dilakukan secara terstruktur. Dengan adanya Model, logika pengolahan data menjadi terpisah dari tampilan (View) dan alur kontrol (Controller), sehingga meningkatkan modularitas dan maintainability kode.
-
-## 2. Relasi Antar Tabel 
-
-Relasi tabel digunakan untuk membangun keterkaitan logis antara dua atau lebih tabel dalam sebuah database relasional. Pada praktikum ini, digunakan pendekatan One-to-Many relationship, di mana satu entitas kategori dapat memiliki lebih dari satu entitas artikel. Implementasi relasi ini biasanya dilakukan dengan menambahkan foreign key pada tabel anak (artikel) yang merujuk ke primary key pada tabel induk (kategori). Dengan struktur ini, integritas data dapat terjaga dan redundansi dapat diminimalkan.
-
-## 3. Query Builder
-
-Query Builder merupakan fitur yang disediakan oleh CodeIgniter untuk mempermudah proses penyusunan query database tanpa harus menuliskan sintaks SQL secara langsung. Melalui Query Builder, pengembang dapat melakukan berbagai operasi seperti:
-
-- penggabungan tabel(join),
-- penyaringan data(filtering),
-- pengurutan data(ordering),
-- serta pembatasan hasil(pagination)
-
-Pendekatan ini tidak hanya meningkatkan efisiensi penulisan kode, tetapi juga membantu mengurangi risiko kesalahan sintaks serta meningkatkan keamanan, terutama terhadap serangan seperti SQL Injection.
-
-
-## Langkah-langkah Pratikum 
-
-### 1. Membuat Tabel Kategori 
-
-```
+# 🗄️ Praktikum 6 — Relasi Tabel dan Query Builder
+ 
+## Daftar Isi
+ 
+- [Pendahuluan](#pendahuluan)
+- [Teori Dasar](#teori-dasar)
+  - [1. Model dalam CodeIgniter](#1-model-dalam-codeigniter)
+  - [2. Relasi Antar Tabel](#2-relasi-antar-tabel)
+  - [3. Query Builder](#3-query-builder)
+- [Langkah-langkah Praktikum](#langkah-langkah-praktikum)
+  - [1. Membuat Tabel Kategori](#1-membuat-tabel-kategori)
+  - [2. Mengubah Tabel Artikel](#2-mengubah-tabel-artikel)
+  - [3. Membuat Model Kategori](#3-membuat-model-kategori)
+  - [4. Memodifikasi ArtikelModel.php](#4-memodifikasi-artikelmodelphp)
+  - [5. Memodifikasi Controller Artikel](#5-memodifikasi-controller-artikel)
+  - [6. Memodifikasi View](#6-memodifikasi-view)
+  - [7. Memodifikasi form_add dan form_edit](#7-memodifikasi-form_add-dan-form_edit)
+  - [8. Testing](#8-testing)
+- [Pertanyaan dan Tugas](#pertanyaan-dan-tugas)
+---
+ 
+## Pendahuluan
+ 
+Praktikum ini merupakan tahap lanjutan dari pembelajaran sebelumnya yang berfokus pada penguatan pemahaman terhadap arsitektur aplikasi berbasis **MVC (Model-View-Controller)**, khususnya pada aspek:
+ 
+- Pengelolaan data menggunakan Model
+- Implementasi relasi antar tabel
+- Pemanfaatan Query Builder dalam framework CodeIgniter 4
+Pendekatan ini bertujuan untuk meningkatkan efisiensi dan skalabilitas dalam pengembangan aplikasi berbasis database.
+ 
+---
+ 
+## Teori Dasar
+ 
+### 1. Model dalam CodeIgniter
+ 
+Model merupakan komponen inti dalam pola arsitektur MVC yang berfungsi sebagai lapisan penghubung antara aplikasi dan database. Melalui Model, seluruh operasi terhadap data dapat dilakukan secara terstruktur, meliputi:
+ 
+| Operasi | Keterangan |
+|---------|------------|
+| **Retrieve** | Pengambilan data dari database |
+| **Insert** | Penyimpanan data baru |
+| **Update** | Pembaruan data yang sudah ada |
+| **Delete** | Penghapusan data |
+ 
+Dengan adanya Model, logika pengolahan data menjadi terpisah dari View dan Controller, sehingga meningkatkan modularitas dan maintainability kode.
+ 
+---
+ 
+### 2. Relasi Antar Tabel
+ 
+Relasi tabel digunakan untuk membangun keterkaitan logis antara dua atau lebih tabel dalam sebuah database relasional. Pada praktikum ini digunakan pendekatan **One-to-Many relationship**, di mana:
+ 
+- Satu entitas **kategori** dapat memiliki lebih dari satu entitas **artikel**
+- Relasi diimplementasikan dengan menambahkan **foreign key** (`id_kategori`) pada tabel anak (artikel) yang merujuk ke primary key pada tabel induk (kategori)
+Dengan struktur ini, integritas data dapat terjaga dan redundansi dapat diminimalkan.
+ 
+---
+ 
+### 3. Query Builder
+ 
+Query Builder adalah fitur CodeIgniter untuk menyusun query database tanpa menulis sintaks SQL secara langsung. Operasi yang dapat dilakukan antara lain:
+ 
+- **Join** — penggabungan tabel
+- **Filtering** — penyaringan data
+- **Ordering** — pengurutan data
+- **Pagination** — pembatasan hasil per halaman
+Pendekatan ini meningkatkan efisiensi penulisan kode, mengurangi risiko kesalahan sintaks, serta meningkatkan keamanan terhadap serangan **SQL Injection**.
+ 
+---
+ 
+## Langkah-langkah Praktikum
+ 
+### 1. Membuat Tabel Kategori
+ 
+Jalankan query SQL berikut untuk membuat tabel `kategori`:
+ 
+```sql
 CREATE TABLE kategori (
     id_kategori INT(11) AUTO_INCREMENT,
     nama_kategori VARCHAR(100) NOT NULL,
@@ -1255,51 +1302,60 @@ CREATE TABLE kategori (
     PRIMARY KEY (id_kategori)
 );
 ```
-
-### 2. Mengubah Tabel Artikel 
-
-Menambahkan foreign key 'id_kategori' pada tabel artikel untuk membuat relasi dengan tabel 'kategori'
-
-```
+ 
+---
+ 
+### 2. Mengubah Tabel Artikel
+ 
+Menambahkan foreign key `id_kategori` pada tabel `artikel` untuk membuat relasi dengan tabel `kategori`:
+ 
+```sql
 ALTER TABLE artikel
 ADD COLUMN id_kategori INT(11),
 ADD CONSTRAINT fk_kategori_artikel
 FOREIGN KEY (id_kategori) REFERENCES kategori(id_kategori);
 ```
-
+ 
+---
+ 
 ### 3. Membuat Model Kategori
-
-Membuat file model baru di app/Models dengan nama KategoriModel.php:
-
-```
+ 
+Buat file model baru di `app/Models/KategoriModel.php`:
+ 
+```php
 <?php
 namespace App\Models;
 use CodeIgniter\Model;
+ 
 class KategoriModel extends Model
 {
-    protected $table = 'kategori';
-    protected $primaryKey = 'id_kategori';
+    protected $table          = 'kategori';
+    protected $primaryKey     = 'id_kategori';
     protected $useAutoIncrement = true;
-    protected $allowedFields = [nama_kategori', 'slug_kategori'];
+    protected $allowedFields  = ['nama_kategori', 'slug_kategori'];
 }
 ```
-
-### 4. Memodifikasi ArtikelModel.php 
-
-```
+ 
+---
+ 
+### 4. Memodifikasi ArtikelModel.php
+ 
+**`app/Models/ArtikelModel.php`**
+ 
+```php
 <?php
-
+ 
 namespace App\Models;
-
+ 
 use CodeIgniter\Model;
-
+ 
 class ArtikelModel extends Model
 {
-   protected $table = 'artikel';
-   protected $primaryKey = 'id';
+   protected $table            = 'artikel';
+   protected $primaryKey       = 'id';
    protected $useAutoIncrement = true;
-   protected $allowedFields = ['judul', 'isi', 'status', 'slug', 'gambar', 'id_kategori'];
-
+   protected $allowedFields    = ['judul', 'isi', 'status', 'slug', 'gambar', 'id_kategori'];
+ 
    public function getArtikelDenganKategori()
    {
       return $this->db->table('artikel')
@@ -1310,83 +1366,87 @@ class ArtikelModel extends Model
    }
 }
 ```
-
-Penjelasan: 
-
-- Menambahkan field id_kategori sebagai foreign key
-- Method getArtikelDenganKategori():
-  - select() → mengambil semua data artikel + nama kategori
-  - join() → menghubungkan tabel artikel dan kategori
-  - getResultArray() → hasil dalam bentuk array
-- Fungsi ini digunakan untuk menampilkan data relasi
-
-### 5. Memodifikasi Controller Artikel 
-
-```
+ 
+**Penjelasan:**
+ 
+| Bagian | Keterangan |
+|--------|------------|
+| `id_kategori` di `$allowedFields` | Menambahkan foreign key agar bisa diisi/diupdate |
+| `select()` | Mengambil semua kolom artikel + `nama_kategori` dari tabel kategori |
+| `join()` | Menghubungkan tabel `artikel` dan `kategori` berdasarkan `id_kategori` |
+| `getResultArray()` | Mengembalikan hasil query dalam bentuk array |
+ 
+---
+ 
+### 5. Memodifikasi Controller Artikel
+ 
+**`app/Controllers/Artikel.php`**
+ 
+```php
 <?php 
-
+ 
 namespace App\Controllers; 
-
+ 
 use App\Models\ArtikelModel;   
 use App\Models\KategoriModel;
 use CodeIgniter\Exceptions\PageNotFoundException;
-
+ 
 class Artikel extends BaseController 
 {
     public function index()
     {
         $title = 'Daftar Artikel';
         $model = new ArtikelModel();
-
+ 
         $artikel = $model
             ->select('artikel.*, kategori.nama_kategori')
             ->join('kategori', 'kategori.id_kategori = artikel.id_kategori', 'left')
             ->findAll();
-
+ 
         return view('artikel/index', compact('artikel', 'title'));
     }
-
+ 
     public function view($slug)
     {
         $model = new ArtikelModel();
-
+ 
         $artikel = $model
             ->select('artikel.*, kategori.nama_kategori')
             ->join('kategori', 'kategori.id_kategori = artikel.id_kategori', 'left')
             ->where('slug', $slug)
             ->first();
-
+ 
         if (!$artikel) {
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         }
-
+ 
         $title = $artikel['judul'];
-
+ 
         return view('artikel/detail', compact('artikel', 'title'));
     }
-
-  public function admin_index()
+ 
+    public function admin_index()
     {
-        $model = new ArtikelModel();
+        $model         = new ArtikelModel();
         $kategoriModel = new KategoriModel();
-
-        $q = $this->request->getGet('q');
+ 
+        $q           = $this->request->getGet('q');
         $kategori_id = $this->request->getGet('kategori_id');
-
+ 
         $builder = $model->select('artikel.*, kategori.nama_kategori')
             ->join('kategori', 'kategori.id_kategori = artikel.id_kategori', 'left');
-
+ 
         if ($q) {
             $builder->like('artikel.judul', $q);
         }
-
+ 
         if ($kategori_id) {
             $builder->where('artikel.id_kategori', $kategori_id);
         }
-
+ 
         $artikel = $builder->paginate(2);
-        $pager = $model->pager;
-
+        $pager   = $model->pager;
+ 
         return view('artikel/admin_index', [
             'title'       => 'Daftar Artikel',
             'artikel'     => $artikel,
@@ -1396,69 +1456,65 @@ class Artikel extends BaseController
             'kategori'    => $kategoriModel->findAll()
         ]);
     }
-
+ 
     public function add()
     {
         $validation = \Config\Services::validation();
         $validation->setRules([
             'judul' => 'required'
         ]);
-
+ 
         $isDataValid = $validation
             ->withRequest($this->request)
             ->run();
-
+ 
         if ($isDataValid)
         {
             $model = new ArtikelModel();
-
-          
-           $model->insert([
-            'judul'       => $this->request->getPost('judul'),
-            'isi'         => $this->request->getPost('isi'),
-            'id_kategori' => $this->request->getPost('id_kategori'), /
-            'slug'        => url_title(
-                $this->request->getPost('judul'),
-                '-', 
-                true
-            ),
-        ]);
-
+ 
+            $model->insert([
+                'judul'       => $this->request->getPost('judul'),
+                'isi'         => $this->request->getPost('isi'),
+                'id_kategori' => $this->request->getPost('id_kategori'),
+                'slug'        => url_title(
+                    $this->request->getPost('judul'),
+                    '-', 
+                    true
+                ),
+            ]);
+ 
             return redirect()->to('/admin/artikel');
         }
-
-        $title = "Tambah Artikel";
-
+ 
+        $title         = "Tambah Artikel";
         $kategoriModel = new KategoriModel();
-
+ 
         return view('artikel/form_add', [
             'title'    => $title,
             'kategori' => $kategoriModel->findAll()
         ]);
     }
-
+ 
     public function edit($id)
     {
-        $model = new ArtikelModel();
+        $model         = new ArtikelModel();
         $kategoriModel = new KategoriModel();
-
-        // Ambil data artikel
+ 
         $artikel = $model->find($id);
-
+ 
         if (!$artikel) {
             throw new \CodeIgniter\Exceptions\PageNotFoundException("Data tidak ditemukan");
         }
-
-        // Validasi
+ 
         $validation = \Config\Services::validation();
         $validation->setRules([
             'judul' => 'required'
         ]);
-
+ 
         $isDataValid = $validation
             ->withRequest($this->request)
             ->run();
-
+ 
         if ($isDataValid)
         {
             $model->update($id, [
@@ -1471,46 +1527,41 @@ class Artikel extends BaseController
                     true
                 ),
             ]);
-
+ 
             return redirect()->to('/admin/artikel');
         }
-
-        $title = "Edit Artikel";
-
+ 
         return view('artikel/form_edit', [
-            'title'    => $title,
+            'title'    => 'Edit Artikel',
             'artikel'  => $artikel,
             'kategori' => $kategoriModel->findAll()
         ]);
     }
-
+ 
     public function delete($id)
     {
         $artikel = new ArtikelModel();
-
+ 
         $artikel->delete($id);
-
+ 
         return redirect()->to('/admin/artikel');
     }
-
+ 
     public function render(string $kategori = null)
     {
         $model = new ArtikelModel();
-
+ 
         $query = $model
             ->select('artikel.*, kategori.nama_kategori')
             ->join('kategori', 'kategori.id_kategori = artikel.id_kategori', 'left')
-            ->orderBy('artikel.id', 'DESC'); // aman
-
+            ->orderBy('artikel.id', 'DESC');
+ 
         if ($kategori) {
             $query->where('kategori.nama_kategori', $kategori);
         }
-
+ 
         $artikel = $query->limit(5)->findAll();
-
-        echo $model->getLastQuery();
-        die;
-
+ 
         return view('components/artikel_terkini', [
             'artikel'  => $artikel,
             'kategori' => $kategori 
@@ -1518,64 +1569,67 @@ class Artikel extends BaseController
     }
 }
 ```
-
-### 6. Memodifikasi View 
-
-Index.php
-
-```
+ 
+---
+ 
+### 6. Memodifikasi View
+ 
+**`app/Views/artikel/index.php`**
+ 
+```php
 <?= $this->include('template/header'); ?>
-
+ 
 <?php if ($artikel): ?>
-
+ 
     <?php foreach ($artikel as $row): ?>
-
+ 
         <article class="entry">
             <h2>
                 <a href="<?= base_url('/artikel/' . $row['slug']); ?>">
                     <?= esc($row['judul']); ?>
                 </a>
             </h2>
-
+ 
             <p>
                 Kategori: <?= esc($row['nama_kategori']); ?>
             </p>
-
+ 
             <img 
                 src="<?= base_url('/gambar/' . $row['gambar']); ?>" 
                 alt="<?= esc($row['judul']); ?>"
             >
-
+ 
             <p>
                 <?= esc(substr($row['isi'], 0, 200)); ?>...
             </p>
         </article>
-
+ 
         <hr class="divider" />
-
+ 
     <?php endforeach; ?>
-
+ 
 <?php else: ?>
-
+ 
     <article class="entry">
         <h2>Belum ada data.</h2>
     </article>
-
+ 
 <?php endif; ?>
-
+ 
 <?= $this->include('template/footer'); ?>
 ```
-
-Penjelasan: 
-
-- Menambahkan kode baru `<p>Kategori: <?= $row['nama_kategori'] ?></p>` untuk menampilkan nama kategori hasil join dan Data ini berasal dari ArtikelModel.
-
-Admin_index.php 
-```
+ 
+> 💡 **Catatan:** Baris `<p>Kategori: <?= esc($row['nama_kategori']); ?></p>` ditambahkan untuk menampilkan nama kategori hasil JOIN dari `ArtikelModel`.
+ 
+---
+ 
+**`app/Views/artikel/admin_index.php`**
+ 
+```php
 <?= $this->include('template/admin_header'); ?>
-
+ 
 <h2><?= esc($title); ?></h2>
-
+ 
 <!-- SEARCH + FILTER -->
 <form method="get" class="admin-search">
     
@@ -1586,7 +1640,7 @@ Admin_index.php
         placeholder="Cari artikel..."
         class="search-input"
     >
-
+ 
     <select name="kategori_id" class="search-select">
         <option value="">Semua Kategori</option>
         <?php foreach ($kategori as $k): ?>
@@ -1598,13 +1652,13 @@ Admin_index.php
             </option>
         <?php endforeach; ?>
     </select>
-
+ 
     <button type="submit" class="btn search-btn">Cari</button>
-
+ 
 </form>
-
+ 
 <p>Total Artikel: <b><?= $total ?? count($artikel); ?></b></p>
-
+ 
 <table class="table">
     <thead>
         <tr>
@@ -1615,29 +1669,29 @@ Admin_index.php
             <th>Aksi</th>
         </tr>
     </thead>
-
+ 
     <tbody>
         <?php if (!empty($artikel)) : ?>
             <?php foreach ($artikel as $row) : ?>
                 <tr>
                     <td><?= $row['id']; ?></td>
-
+ 
                     <td>
                         <b><?= esc($row['judul']); ?></b>
                         <p>
                             <small><?= esc(substr($row['isi'], 0, 50)); ?>...</small>
                         </p>
                     </td>
-
+ 
                     <td><?= esc($row['nama_kategori']); ?></td>
-
+ 
                     <td><?= esc($row['status']); ?></td>
-
+ 
                     <td>
                         <a class="btn" href="<?= base_url('admin/artikel/edit/' . $row['id']); ?>">
                             Ubah
                         </a>
-
+ 
                         <a 
                             class="btn btn-danger"
                             onclick="return confirm('Yakin menghapus data?');"
@@ -1655,35 +1709,36 @@ Admin_index.php
         <?php endif; ?>
     </tbody>
 </table>
-
-<!-- PAGINATION (BIAR SEARCH & FILTER IKUT) -->
+ 
+<!-- PAGINATION -->
 <?= $pager->links('default', 'custom_pagination') ?>
-
+ 
 <?= $this->include('template/admin_footer'); ?>
 ```
-
-
+ 
+---
+ 
 ### 7. Memodifikasi form_add dan form_edit
-
-Form_add.php 
-
-```
+ 
+**`app/Views/artikel/form_add.php`**
+ 
+```php
 <?= $this->include('template/admin_header'); ?>
-
+ 
 <h2><?= $title; ?></h2>
-
+ 
 <form action="" method="post">
     
     <p>
         <label for="judul">Judul</label><br>
         <input type="text" name="judul" id="judul" required>
     </p>
-
+ 
     <p>
         <label for="isi">Isi</label><br>
         <textarea name="isi" id="isi" cols="50" rows="10"></textarea>
     </p>
-
+ 
     <p>
         <label for="id_kategori">Kategori</label><br>
         <select name="id_kategori" id="id_kategori" required>
@@ -1694,38 +1749,40 @@ Form_add.php
             <?php endforeach; ?>
         </select>
     </p>
-
+ 
     <p>
         <input type="submit" value="Kirim" class="btn btn-large">
     </p>
-
+ 
 </form>
-
+ 
 <?= $this->include('template/admin_footer'); ?>
 ```
-
-Form_edit.php 
-
-```
+ 
+---
+ 
+**`app/Views/artikel/form_edit.php`**
+ 
+```php
 <?= $this->include('template/admin_header'); ?>
-
+ 
 <h2><?= $title; ?></h2>
-
+ 
 <form action="" method="post">
-
+ 
     <p>
         <label for="judul">Judul</label><br>
         <input type="text" name="judul" id="judul" 
                value="<?= $artikel['judul']; ?>" required>
     </p>
-
+ 
     <p>
         <label for="isi">Isi</label><br>
         <textarea name="isi" id="isi" cols="50" rows="10">
 <?= $artikel['isi']; ?>
         </textarea>
     </p>
-
+ 
     <p>
         <label for="id_kategori">Kategori</label><br>
         <select name="id_kategori" id="id_kategori" required>
@@ -1737,114 +1794,133 @@ Form_edit.php
             <?php endforeach; ?>
         </select>
     </p>
-
+ 
     <p>
         <input type="submit" value="Kirim" class="btn btn-large">
     </p>
-
+ 
 </form>
-
+ 
 <?= $this->include('template/admin_footer'); ?>
 ```
-
-Penjelasan: 
-- Dropdown kategori diambil dari database.
-- Admin memilih kategori saat input artikel.
-
-### 8. Testing 
+ 
+> 💡 **Catatan:** Dropdown kategori diambil dari database. Admin memilih kategori saat menambah atau mengedit artikel. Pada form edit, opsi yang sesuai dengan kategori artikel saat ini akan otomatis `selected`.
+ 
+---
+ 
+### 8. Testing
+ 
 Lakukan uji coba untuk memastikan semua fungsi berjalan dengan baik:
-- Menampilkan daftar artikel dengan nama kategori.
-
-![Gambar 15](Pict3-4/readkategori.png)
-
-- Menambah artikel baru dengan memilih kategori.
-
-![Gambar 16](Pict3-4/form_add.png)
-
-![Gambar 17](Pict3-4/addartikel.png)
-
-- Mengedit artikel dan mengubah kategorinya.
-
- ![Gambar 18](Pict3-4/editkategori.png)
-
-- Menghapus artikel
-  
-
-
-### 9. Pertanyaan dan Tugas
-1. Selesaikan semua langkah praktikum di atas.
-2. Modifikasi tampilan detail artikel (artikel/detail.php) untuk menampilkan nama kategori artikel.
-
-   ```
-       <?= $this->include('template/header'); ?> 
-    <article class="entry">
-        <h2><?= esc($artikel['judul']); ?></h2>
-    
-        <p>
-            <b>Kategori:</b> <?= esc($artikel['nama_kategori'] ?? 'Tidak ada'); ?>
-        </p>
-    
-        <img 
-            src="<?= base_url('/gambar/' . $artikel['gambar']); ?>" 
-            alt="<?= esc($artikel['judul']); ?>"
-        >
-    
-        <p><?= esc($artikel['isi']); ?></p>
-    </article>
-    
-    <?= $this->include('template/footer'); ?>
-   ```
-
-- ![Gambar 19](Pict3-4/detailkategori.png)
-
-4. Tambahkan fitur untuk menampilkan daftar kategori di halaman depan (opsional).
-
-   ```
-       <?= $this->include('template/header'); ?>
-    
-    <?php if ($artikel): ?>
-    
-        <?php foreach ($artikel as $row): ?>
-    
-            <article class="entry">
-                <h2>
-                    <a href="<?= base_url('/artikel/' . $row['slug']); ?>">
-                        <?= esc($row['judul']); ?>
-                    </a>
-                </h2>
-    
-                <p>
-                    Kategori: <?= esc($row['nama_kategori']); ?>
-                </p>
-    
-                <img 
-                    src="<?= base_url('/gambar/' . $row['gambar']); ?>" 
-                    alt="<?= esc($row['judul']); ?>"
-                >
-    
-                <p>
-                    <?= esc(substr($row['isi'], 0, 200)); ?>...
-                </p>
-            </article>
-    
-            <hr class="divider" />
-    
-        <?php endforeach; ?>
-    
-    <?php else: ?>
-    
+ 
+**Menampilkan daftar artikel dengan nama kategori**
+ 
+![Daftar Artikel dengan Kategori](Pict3-4/readkategori.png)
+ 
+**Menambah artikel baru dengan memilih kategori**
+ 
+![Form Tambah Artikel](Pict3-4/form_add.png)
+ 
+![Hasil Tambah Artikel](Pict3-4/addartikel.png)
+ 
+**Mengedit artikel dan mengubah kategorinya**
+ 
+![Edit Kategori](Pict3-4/editkategori.png)
+ 
+**Menghapus artikel** — pastikan data terhapus dan tidak muncul di daftar.
+ 
+---
+ 
+## Pertanyaan dan Tugas
+ 
+### 1. Selesaikan semua langkah praktikum di atas.
+ 
+### 2. Modifikasi tampilan detail artikel untuk menampilkan nama kategori
+ 
+**`app/Views/artikel/detail.php`**
+ 
+```php
+<?= $this->include('template/header'); ?> 
+ 
+<article class="entry">
+    <h2><?= esc($artikel['judul']); ?></h2>
+ 
+    <p>
+        <b>Kategori:</b> <?= esc($artikel['nama_kategori'] ?? 'Tidak ada'); ?>
+    </p>
+ 
+    <img 
+        src="<?= base_url('/gambar/' . $artikel['gambar']); ?>" 
+        alt="<?= esc($artikel['judul']); ?>"
+    >
+ 
+    <p><?= esc($artikel['isi']); ?></p>
+</article>
+ 
+<?= $this->include('template/footer'); ?>
+```
+ 
+![Detail Artikel dengan Kategori](Pict3-4/detailkategori.png)
+ 
+---
+ 
+### 3. Tambahkan fitur menampilkan daftar kategori di halaman depan *(opsional)*
+ 
+**`app/Views/artikel/index.php`**
+ 
+```php
+<?= $this->include('template/header'); ?>
+ 
+<?php if ($artikel): ?>
+ 
+    <?php foreach ($artikel as $row): ?>
+ 
         <article class="entry">
-            <h2>Belum ada data.</h2>
+            <h2>
+                <a href="<?= base_url('/artikel/' . $row['slug']); ?>">
+                    <?= esc($row['judul']); ?>
+                </a>
+            </h2>
+ 
+            <p>
+                Kategori: <?= esc($row['nama_kategori']); ?>
+            </p>
+ 
+            <img 
+                src="<?= base_url('/gambar/' . $row['gambar']); ?>" 
+                alt="<?= esc($row['judul']); ?>"
+            >
+ 
+            <p>
+                <?= esc(substr($row['isi'], 0, 200)); ?>...
+            </p>
         </article>
-    
-    <?php endif; ?>
-    
-    <?= $this->include('template/footer'); ?>
-   ```
-
-- ![Gambar 20](Pict3-4/kategori.png)
-
-6. Buat fungsi untuk menampilkan artikel berdasarkan kategori tertentu (opsional).
+ 
+        <hr class="divider" />
+ 
+    <?php endforeach; ?>
+ 
+<?php else: ?>
+ 
+    <article class="entry">
+        <h2>Belum ada data.</h2>
+    </article>
+ 
+<?php endif; ?>
+ 
+<?= $this->include('template/footer'); ?>
+```
+ 
+![Kategori di Halaman Depan](Pict3-4/kategori.png)
+ 
+---
+ 
+### 4. Buat fungsi untuk menampilkan artikel berdasarkan kategori tertentu *(opsional)*
+ 
+Fungsi `render()` sudah tersedia di Controller Artikel dan dapat dipanggil dengan parameter nama kategori untuk memfilter artikel yang ditampilkan berdasarkan kategori yang dipilih.
+ 
+---
+ 
+*Laporan Praktikum 6 — Relasi Tabel dan Query Builder | Pemrograman Web*
 
 # 📷 Praktikum 7 — Upload Gambar File
 
