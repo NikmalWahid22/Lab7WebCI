@@ -1077,122 +1077,269 @@ public function logout()
 }
 ```
 
-# Pratikum 5: Pagination dan Pencarian 
+# 📘 Praktikum 5 — Pagination dan Pencarian
 
-## Langkah-langkah pratikum 
+> Pemrograman Web menggunakan Framework CodeIgniter 4
 
-### Membuat pagination 
+---
 
-Pagination adalah suatu teknik dalam pengembangan aplikasi yang digunakan untuk membagi data dalam jumlah besar menjadi beberapa bagian atau halaman yang lebih kecil. Teknik ini sangat umum digunakan pada aplikasi berbasis web maupun mobile, terutama ketika sistem harus menampilkan data dalam jumlah banyak seperti daftar artikel, produk, atau pengguna.
+# 📚 Daftar Isi
 
-Tujuan dan fungsi pagination 
-1. Meningkatkan Performa Aplikasi
-2. Mengurangi Waktu Loading
-3. Mempermudah Navigasi Data
-4. Meningkatkan Kerapihan Tampilan
-5. Efisiensi Penggunaan Sumber Daya
+- [Pendahuluan](#pendahuluan)
+- [Teori Dasar](#teori-dasar)
+  - [1. Pagination](#1-pagination)
+  - [2. Pencarian (Search)](#2-pencarian-search)
+- [Langkah-langkah Praktikum](#langkah-langkah-praktikum)
+  - [1. Membuat Pagination](#1-membuat-pagination)
+  - [2. Membuat Pencarian](#2-membuat-pencarian)
+  - [3. Mengintegrasikan Search dan Pagination](#3-mengintegrasikan-search-dan-pagination)
+  - [4. Membuat Custom Pagination](#4-membuat-custom-pagination)
+- [Hasil Pengujian](#hasil-pengujian)
+- [Improvisasi](#improvisasi)
+- [Pertanyaan dan Tugas](#pertanyaan-dan-tugas)
+- [Kesimpulan](#kesimpulan)
 
-Untuk membuat pagination kita perlu membuka kembali Controller Artikel kemudian modikasi kode pada method admin_index 
+---
+
+# Pendahuluan
+
+Pada praktikum ini dilakukan pengembangan fitur pada aplikasi berbasis **CodeIgniter 4** dengan menambahkan fitur:
+
+- Pagination
+- Pencarian data (*search*)
+- Custom pagination
+
+Fitur-fitur tersebut bertujuan untuk meningkatkan efisiensi pengelolaan data, mempercepat proses pencarian informasi, serta meningkatkan kenyamanan pengguna ketika mengakses data dalam jumlah besar.
+
+Implementasi dilakukan pada halaman admin artikel sehingga data artikel dapat dibatasi per halaman dan dicari berdasarkan kata kunci tertentu.
+
+---
+
+# Teori Dasar
+
+## 1. Pagination
+
+Pagination adalah teknik yang digunakan untuk membagi data dalam jumlah besar menjadi beberapa halaman yang lebih kecil. Teknik ini umum digunakan pada aplikasi web maupun mobile untuk meningkatkan performa sistem dan mempermudah navigasi data.
+
+### Tujuan dan Fungsi Pagination
+
+| No | Fungsi |
+|----|---------|
+| 1 | Meningkatkan performa aplikasi |
+| 2 | Mengurangi waktu loading |
+| 3 | Mempermudah navigasi data |
+| 4 | Membuat tampilan lebih rapi |
+| 5 | Menghemat penggunaan sumber daya server |
+
+Dengan pagination, sistem tidak perlu memuat seluruh data sekaligus sehingga proses rendering halaman menjadi lebih ringan dan efisien.
+
+---
+
+## 2. Pencarian (Search)
+
+Pencarian atau *search* merupakan fitur yang digunakan untuk menemukan data tertentu berdasarkan kata kunci (*keyword*) yang dimasukkan oleh pengguna.
+
+Fitur ini biasanya diintegrasikan dengan database menggunakan query filtering sehingga hanya data yang relevan yang akan ditampilkan.
+
+### Tujuan dan Fungsi Pencarian
+
+| No | Fungsi |
+|----|---------|
+| 1 | Mempercepat pencarian data |
+| 2 | Meningkatkan efisiensi penggunaan aplikasi |
+| 3 | Mempermudah akses informasi |
+| 4 | Meningkatkan pengalaman pengguna |
+| 5 | Membantu pengelolaan data dalam jumlah besar |
+
+---
+
+# Langkah-langkah Praktikum
+
+## 1. Membuat Pagination
+
+Untuk membuat pagination, buka kembali Controller `Artikel` kemudian modifikasi method `admin_index()` menjadi seperti berikut:
+
+```php
+public function admin_index()
+{
+    $title = 'Daftar Artikel';
+
+    $model = new ArtikelModel();
+
+    $data = [
+        'title'   => $title,
+        'artikel' => $model->paginate(10),
+        'pager'   => $model->pager,
+    ];
+
+    return view('artikel/admin_index', $data);
+}
 ```
-    public function admin_index()
-    {
-        $title = 'Daftar Artikel';
-        $model = new ArtikelModel();
-        $data = [
-        'title' => $title,
-        'artikel' => $model->paginate(10), #data dibatasi 10 record
-        per halaman
-        'pager' => $model->pager,
-        ];
-        return view('artikel/admin_index', $data);
-    }
+
+### Penjelasan
+
+| Kode | Fungsi |
+|------|---------|
+| `paginate(10)` | Membatasi jumlah data sebanyak 10 record per halaman |
+| `$model->pager` | Mengambil objek pagination |
+| `return view()` | Mengirim data ke halaman view |
+
+---
+
+Selanjutnya buka file:
+
+```bash
+app/Views/artikel/admin_index.php
 ```
-Kemudian buka file views/artikel/admin_index.php dan tambahkan kode berikut
-dibawah deklarasi tabel data.
-```
+
+Tambahkan kode berikut di bawah tabel data:
+
+```php
 <?= $pager->links(); ?>
 ```
 
-### Membuat Pencarian 
+Kode tersebut digunakan untuk menampilkan navigasi pagination secara otomatis.
 
-Pencarian (Search) adalah fitur yang digunakan untuk menemukan data tertentu berdasarkan kata kunci (keyword) yang dimasukkan oleh pengguna. Fitur ini biasanya terintegrasi dengan database untuk memfilter data sesuai dengan input pengguna.
+---
 
-Tujuan Dan Fungsi Pencarian 
-1. Mempercepat Proses Pencarian Data
-2. Meningkatkan Efisiensi Penggunaan Aplikasi
-3. Meningkatkan Pengalaman Pengguna
-4. Mempermudah Akses Informasi Spesifik
-5. Mendukung Pengumpulan Aplikasi
+# 2. Membuat Pencarian
 
-Untuk membuat search kita perlu menambahkan kode pada admin_index.php 
+Tambahkan form pencarian pada file:
+
+```bash
+app/Views/artikel/admin_index.php
 ```
+
+```php
 <form method="get" class="admin-search">
-    <input type="text" name="q" placeholder="Cari artikel...">
-    <button type="submit" class="btn">Cari</button>
+
+    <input 
+        type="text" 
+        name="q" 
+        placeholder="Cari artikel..."
+    >
+
+    <button type="submit" class="btn">
+        Cari
+    </button>
+
 </form>
 ```
 
-Dan Ubah Link Pager menjadi seperti ini 
-```
+### Penjelasan
+
+| Komponen | Fungsi |
+|-----------|---------|
+| `method="get"` | Mengirim keyword melalui URL |
+| `name="q"` | Menyimpan keyword pencarian |
+| `button submit` | Menjalankan proses pencarian |
+
+---
+
+# 3. Mengintegrasikan Search dan Pagination
+
+Agar pagination tetap berjalan ketika pencarian dilakukan, ubah kode pagination menjadi:
+
+```php
 <?= $pager->only(['q'])->links(); ?>
 ```
 
-![Gambar 13](Pict3-4/Searchandpagination.png)
+Kode tersebut berfungsi untuk mempertahankan parameter pencarian (`q`) ketika pengguna berpindah halaman pagination.
 
-## Pertanyaan dan Tugas 
+---
 
-Selesaikan programnya sesuai Langkah-langkah yang ada. Anda boleh melakukan improvisasi.
+## Modifikasi Controller
 
-## Improvivasi 
+Controller juga dimodifikasi agar mendukung pencarian dan perhitungan total data secara dinamis.
 
-Mengubah Sedikit Controller karena sebelumnya sudah ditambahkan total artikel pada program. Proses pencarian dilakukan dengan mengambil input pengguna melalui parameter HTTP GET, kemudian memfilter data menggunakan metode like() sehingga hanya data yang sesuai dengan kata kunci yang ditampilkan. Selanjutnya, pagination diterapkan menggunakan metode paginate() untuk membatasi jumlah data yang ditampilkan per halaman, sehingga sistem hanya memuat sebagian data sesuai kebutuhan dan mengurangi beban server. Selain itu, jumlah total data dihitung menggunakan countAll() untuk keseluruhan data atau countAllResults() ketika pencarian aktif, sehingga informasi yang ditampilkan tetap akurat dan relevan. Integrasi antara searching dan pagination memungkinkan data yang telah difilter tetap dibagi ke dalam beberapa halaman secara dinamis, sehingga meningkatkan performa sistem sekaligus memberikan pengalaman pengguna yang lebih baik, terstruktur, dan mudah dalam menavigasi data.
-
-```
+```php
 public function admin_index()
-    {
-        $model = new ArtikelModel();
-        $q = $this->request->getGet('q');
+{
+    $model = new ArtikelModel();
 
-        if ($q) {
-            $model->like('judul', $q);
-        }
+    $q = $this->request->getGet('q');
 
-        $artikel = $model->paginate(2);
-        $pager = $model->pager;
-
-        // total sesuai kondisi
-        if ($q) {
-            $total = $model->like('judul', $q)->countAllResults();
-        } else {
-            $total = $model->countAll();
-        }
-
-        return view('artikel/admin_index', [
-            'title'   => 'Daftar Artikel',
-            'artikel' => $artikel,
-            'pager'   => $pager,
-            'total'   => $total,
-            'q'       => $q
-        ]);
+    if ($q) {
+        $model->like('judul', $q);
     }
-```
-## Menambahkan Custom_Pagination.php 
 
-Menambahkan custom_pagination pada program bertujuan agar memudahkan dalam memodifikasi tampilan pagination. Untuk membuat custom_pagination.php kita harus membuat folder Pager pada direktori Views, lalu isi dengan kode ini 
+    $artikel = $model->paginate(2);
 
+    $pager = $model->pager;
+
+    // Total data sesuai kondisi
+    if ($q) {
+        $total = $model->like('judul', $q)
+                       ->countAllResults();
+    } else {
+        $total = $model->countAll();
+    }
+
+    return view('artikel/admin_index', [
+        'title'   => 'Daftar Artikel',
+        'artikel' => $artikel,
+        'pager'   => $pager,
+        'total'   => $total,
+        'q'       => $q
+    ]);
+}
 ```
+
+---
+
+## Penjelasan Program
+
+| Bagian | Fungsi |
+|--------|---------|
+| `$this->request->getGet('q')` | Mengambil keyword pencarian |
+| `like('judul', $q)` | Memfilter data berdasarkan judul |
+| `paginate(2)` | Membatasi data sebanyak 2 artikel per halaman |
+| `countAllResults()` | Menghitung total hasil pencarian |
+| `countAll()` | Menghitung seluruh data artikel |
+
+---
+
+# 4. Membuat Custom Pagination
+
+Custom pagination digunakan untuk memodifikasi tampilan pagination agar lebih menarik dan mudah dikustomisasi.
+
+Buat folder berikut:
+
+```bash
+app/Views/Pager
+```
+
+Kemudian buat file:
+
+```bash
+custom_pagination.php
+```
+
+Isi file tersebut dengan kode berikut:
+
+```php
 <ul class="pagination-custom">
+
     <?php foreach ($pager->links() as $link) : ?>
+
         <li class="<?= $link['active'] ? 'active' : '' ?>">
+
             <a href="<?= $link['uri'] ?>">
                 <?= $link['title'] ?>
             </a>
+
         </li>
+
     <?php endforeach ?>
+
 </ul>
 ```
-CSS
-```
+
+---
+
+## Menambahkan CSS Pagination
+
+```css
 .pagination-custom {
     list-style: none;
     display: flex;
@@ -1215,7 +1362,81 @@ CSS
 }
 ```
 
-![Gambar 14](Pict3-4/Searchandpagination.png) 
+---
+
+## Menggunakan Custom Pagination
+
+Ubah kode pagination menjadi:
+
+```php
+<?= $pager->links('default', 'custom_pagination'); ?>
+```
+
+---
+
+# Hasil Pengujian
+
+## Tampilan Search dan Pagination
+
+![Search dan Pagination](Pict3-4/Searchandpagination.png)
+
+### Hasil yang Diperoleh
+
+- Pagination berhasil membatasi jumlah data per halaman
+- Pencarian artikel berjalan dengan baik
+- Pagination tetap aktif ketika proses pencarian dilakukan
+- Tampilan pagination menjadi lebih menarik setelah menggunakan custom pagination
+
+---
+
+# Improvisasi
+
+Pada praktikum ini dilakukan beberapa pengembangan tambahan, yaitu:
+
+- Menampilkan total artikel
+- Mengintegrasikan search dengan pagination
+- Mengoptimalkan proses filtering data
+- Membuat custom pagination
+
+Proses pencarian dilakukan menggunakan parameter HTTP GET kemudian difilter menggunakan metode `like()` pada Query Builder.
+
+Pagination diterapkan menggunakan metode `paginate()` sehingga sistem hanya menampilkan sebagian data sesuai kebutuhan. Pendekatan ini membantu mengurangi beban server sekaligus meningkatkan efisiensi aplikasi.
+
+Selain itu, jumlah total data dihitung menggunakan:
+
+- `countAll()` untuk seluruh data
+- `countAllResults()` untuk hasil pencarian
+
+Dengan integrasi tersebut, sistem menjadi lebih:
+
+- Efisien
+- Responsif
+- Terstruktur
+- Mudah digunakan
+
+---
+
+# Pertanyaan dan Tugas
+
+Selesaikan program sesuai langkah-langkah praktikum yang diberikan. Mahasiswa diperbolehkan melakukan improvisasi terhadap tampilan maupun logika program untuk meningkatkan kualitas aplikasi.
+
+---
+
+# Kesimpulan
+
+Berdasarkan praktikum yang telah dilakukan, dapat disimpulkan bahwa:
+
+1. Pagination membantu meningkatkan performa aplikasi dengan membatasi jumlah data yang ditampilkan.
+2. Fitur pencarian mempermudah pengguna menemukan data tertentu secara cepat.
+3. Integrasi search dan pagination membuat sistem lebih efisien dalam mengelola data besar.
+4. Custom pagination meningkatkan kualitas antarmuka aplikasi agar lebih modern dan mudah digunakan.
+5. Query Builder pada CodeIgniter 4 mempermudah proses manipulasi data secara aman dan terstruktur.
+
+---
+
+# 📌 Praktikum 5 — Pagination dan Pencarian
+
+### Pemrograman Web | Framework CodeIgniter 4
 
 # 🗄️ Praktikum 6 — Relasi Tabel dan Query Builder
  
