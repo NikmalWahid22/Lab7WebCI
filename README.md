@@ -1,68 +1,256 @@
-# Pratikum 1 - Pemrograman Web 2 (Instalasi Code Igniter)
+# 🚀 Praktikum 1 — Pemrograman Web 2 (Instalasi CodeIgniter 4)
 
-Nama : Muhamad Nikmal Wahid 
-NIM : 312410372 
-Kelas : I241C 
-Mata Kuliah : Pemrograman Web 2 
+## Identitas Mahasiswa
 
-# Instalasi CodeIgniter 4 
+| Keterangan | Detail |
+|---|---|
+| **Nama** | Muhamad Nikmal Wahid |
+| **NIM** | 312410372 |
+| **Kelas** | I241C |
+| **Mata Kuliah** | Pemrograman Web 2 |
 
-- Unduh CodeIgniter dari website https://codeigniter.com/download
-- Extrak file zip Codeigniter ke direktori htdocs/lab11_ci.
-- Ubah nama direktory framework-4.x.xx menjadi ci4.
-- Buka browser dengan alamat http://localhost/lab11_ci/ci4/public/
+---
 
-![Gambar Contact](Pict/Instalasi.png)
+# 📚 Daftar Isi
 
+- [Pendahuluan](#pendahuluan)
+- [Teori Dasar](#teori-dasar)
+  - [1. Framework CodeIgniter 4](#1-framework-codeigniter-4)
+  - [2. CLI pada CodeIgniter](#2-cli-pada-codeigniter)
+  - [3. Routing dan Controller](#3-routing-dan-controller)
+  - [4. View dan Layout](#4-view-dan-layout)
+- [Langkah-langkah Praktikum](#langkah-langkah-praktikum)
+  - [1. Instalasi CodeIgniter 4](#1-instalasi-codeigniter-4)
+  - [2. Menjalankan CLI](#2-menjalankan-cli-command-line-interface)
+  - [3. Mengaktifkan Mode Debugging](#3-mengaktifkan-mode-debugging)
+  - [4. Router dan Controller](#4-router-dan-controller)
+  - [5. Membuat Route Baru](#5-membuat-route-baru)
+  - [6. Membuat Controller](#6-membuat-controller)
+  - [7. Membuat View](#7-membuat-view)
+  - [8. Membuat Layout Header dan Footer](#8-membuat-layout-header-dan-footer)
+- [Pertanyaan dan Tugas](#pertanyaan-dan-tugas)
+- [Kesimpulan](#kesimpulan)
 
-## Menjalankan CLI (Command Line Interface) 
-Codeigniter 4 menyediakan CLI untuk mempermudah proses development. Untuk mengakses
-CLI buka terminal/command prompt. Arahkan lokasi direktori sesuai dengan direktori kerja project dibuat 
+---
 
-Perintah yang dapat dijalankan untuk memanggil CLI CodeIgniter adalah: 
+# Pendahuluan
 
-```
-php spark
-```
+Pada praktikum ini dilakukan proses instalasi dan pengenalan dasar framework **CodeIgniter 4**. Praktikum berfokus pada konfigurasi awal framework, penggunaan routing, controller, view, serta penerapan layout sederhana menggunakan header dan footer.
 
-## Mengakftikan Mode Debugging 
+Tujuan praktikum ini adalah agar mahasiswa memahami dasar penggunaan framework CodeIgniter 4 dalam pengembangan aplikasi web berbasis MVC (*Model-View-Controller*).
 
-![Gambar Contact](Pict/environment.png)
+---
 
-Untuk menampikan jenis error maka kita perlu mengaktikan mode debugging dengan mengubah nilai konfigurasi pada environment variable CI_ENVIRINMENT menjadi development. 
+# Teori Dasar
 
-Ubah nama File env menjadi .env kemudian buka file tersebut dan ubah nilai variable  CI_ENVIRINMENT menjadi development. 
+## 1. Framework CodeIgniter 4
 
-## Router dan Controller 
+CodeIgniter 4 adalah framework PHP berbasis MVC yang digunakan untuk membangun aplikasi web secara cepat, ringan, dan terstruktur.
 
-Router terletak pada file app/config/Routes.php 
+Beberapa keunggulan CodeIgniter 4:
 
-Pada file tersebut kita dapat mendefinisikan route untuk aplikasi yang kita buat.
-```
+- Ringan dan cepat
+- Struktur MVC yang rapi
+- Memiliki CLI bawaan
+- Mendukung routing
+- Mempermudah pengelolaan aplikasi web
+
+---
+
+## 2. CLI pada CodeIgniter
+
+CLI (*Command Line Interface*) merupakan fitur bawaan CodeIgniter 4 yang digunakan untuk membantu proses development melalui terminal atau command prompt.
+
+Contoh penggunaan CLI:
+
+| Perintah | Fungsi |
+|---|---|
+| `php spark` | Menampilkan daftar command |
+| `php spark routes` | Menampilkan daftar routing |
+| `php spark serve` | Menjalankan development server |
+
+---
+
+## 3. Routing dan Controller
+
+### Routing
+
+Routing digunakan untuk menentukan URL yang akan diarahkan ke controller tertentu.
+
+Contoh:
+
+```php
 $routes->get('/', 'Home::index');
 ```
 
-### Membuat Route Baru 
+### Controller
 
-Tambahkan kode ini diddalam routes.php 
+Controller berfungsi sebagai penghubung antara model dan view.
+
+Controller bertugas:
+
+- Mengelola request pengguna
+- Memproses data
+- Menampilkan halaman view
+
+---
+
+## 4. View dan Layout
+
+View digunakan untuk menampilkan tampilan aplikasi kepada pengguna.
+
+Sedangkan layout digunakan untuk menjaga konsistensi tampilan seperti:
+
+- Header
+- Footer
+- Sidebar
+- Navigasi
+
+Dengan layout, struktur halaman menjadi lebih rapi dan reusable.
+
+---
+
+# Langkah-langkah Praktikum
+
+# 1. Instalasi CodeIgniter 4
+
+Langkah instalasi CodeIgniter 4:
+
+1. Unduh CodeIgniter melalui website resmi:
+
+```text
+https://codeigniter.com/download
 ```
+
+2. Extract file ZIP ke direktori:
+
+```text
+htdocs/lab11_ci
+```
+
+3. Ubah nama folder framework:
+
+```text
+framework-4.x.xx → ci4
+```
+
+4. Jalankan project melalui browser:
+
+```text
+http://localhost/lab11_ci/ci4/public/
+```
+
+---
+
+## Tampilan Instalasi
+
+![Instalasi CodeIgniter](Pict/Instalasi.png)
+
+---
+
+# 2. Menjalankan CLI (Command Line Interface)
+
+CodeIgniter menyediakan CLI untuk membantu proses development.
+
+Masuk ke direktori project melalui terminal atau command prompt, kemudian jalankan:
+
+```bash
+php spark
+```
+
+Perintah tersebut digunakan untuk menampilkan seluruh command yang tersedia pada CodeIgniter 4.
+
+---
+
+# 3. Mengaktifkan Mode Debugging
+
+Mode debugging digunakan untuk menampilkan detail error ketika terjadi kesalahan pada aplikasi.
+
+---
+
+## Langkah Mengaktifkan Debugging
+
+1. Ubah nama file:
+
+```text
+env → .env
+```
+
+2. Buka file `.env`
+
+3. Ubah konfigurasi berikut:
+
+```env
+CI_ENVIRONMENT = development
+```
+
+---
+
+## Tampilan Environment
+
+![Environment](Pict/environment.png)
+
+---
+
+# 4. Router dan Controller
+
+File routing berada pada:
+
+```text
+app/Config/Routes.php
+```
+
+Contoh route bawaan:
+
+```php
+$routes->get('/', 'Home::index');
+```
+
+Route tersebut akan mengarahkan halaman utama ke controller `Home`.
+
+---
+
+# 5. Membuat Route Baru
+
+Tambahkan route berikut pada file `Routes.php`:
+
+```php
 $routes->get('/about', 'Page::about');
+
 $routes->get('/contact', 'Page::contact');
+
 $routes->get('/faqs', 'Page::faqs');
 ```
 
-Untuk mengetahui route yg ditambakan sudah benar atau belum, buka CLI dan jalankan perintah berikut 
+---
 
-```
+## Mengecek Route
+
+Gunakan CLI berikut untuk mengecek route:
+
+```bash
 php spark routes
 ```
 
-![Gambar Contact](page.png)
+---
 
+## Tampilan Route
 
-## Membuat Controller 
+![Halaman Route](page.png)
 
+---
+
+# 6. Membuat Controller
+
+Buat file berikut:
+
+```text
+app/Controllers/Page.php
 ```
+
+Isi file dengan kode berikut:
+
+```php
 <?php
 
 namespace App\Controllers;
@@ -86,107 +274,183 @@ class Page extends BaseController
 }
 ```
 
-## Membuat View 
+---
 
-Buat File baru dengan nama about.php pada direktori (app/view/about.php)
+## Penjelasan Controller
+
+| Method | Fungsi |
+|---|---|
+| `about()` | Menampilkan halaman About |
+| `contact()` | Menampilkan halaman Contact |
+| `faqs()` | Menampilkan halaman FAQ |
+
+---
+
+# 7. Membuat View
+
+Buat file berikut:
+
+```text
+app/Views/about.php
 ```
+
+Isi file dengan kode berikut:
+
+```php
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
+
     <title><?= $title; ?></title>
-    <link rel="stylesheet" href="<?= base_url('styles.css'); ?>">
+
+    <link rel="stylesheet"
+          href="<?= base_url('styles.css'); ?>">
 </head>
+
 <body>
 
 <?= $this->include('template/header.php'); ?>
 
 <h1><?= esc($title); ?></h1>
+
 <hr>
+
 <p><?= esc($content); ?></p>
 
 <?= $this->include('template/footer.php'); ?>
 
 </body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title><?= $title; ?></title>
-    <link rel="stylesheet" href="<?= base_url('styles.css'); ?>">
-</head>
-<body>
-
-
-<h1><?= esc($title); ?></h1>
-<hr>
-<p><?= esc($content); ?></p>
-
-
-</body>
 </html>
 ```
 
-Ubah method pada abut di dalam class Controller page seperti berikut: 
+---
 
+## Mengubah Method About pada Controller
+
+Ubah method `about()` menjadi:
+
+```php
+public function about()
+{
+    return view('about', [
+
+        'title'   => 'Halaman About',
+
+        'content' => 'Ini adalah halaman about yang menjelaskan tentang isi halaman ini.'
+
+    ]);
+}
 ```
- public function about()
-    {
-        return view('about', [
-            'title' => 'Halaman About',
-            'content' => 'Ini adalah halaman about yang menjelaskan tentang isi halaman ini.'
-        ]);
-    }
+
+Method tersebut digunakan untuk mengirim data ke halaman view.
+
+---
+
+# 8. Membuat Layout Header dan Footer
+
+Layout digunakan agar tampilan halaman lebih konsisten.
+
+---
+
+## Header
+
+Buat file:
+
+```text
+app/Views/template/header.php
 ```
 
-## Membuat Layout Header dan Footer 
+Isi file dengan kode berikut:
 
-![Gambar View](view.png)
-
-### Header 
-```
+```php
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
+
     <title><?= $title; ?></title>
-    <link rel="stylesheet" href="<?= base_url('styles.css');?>">
+
+    <link rel="stylesheet"
+          href="<?= base_url('styles.css'); ?>">
+
 </head>
+
 <body>
-    <div id="container">
-        <header>
-            <h1>Layout Sederhana</h1>
-        </header>
-        <nav>
-            <a href="<?= base_url('/');?>" class="active">Home</a>
-            <a href="<?= base_url('/artikel');?>">Artikel</a>
-            <a href="<?= base_url('/about');?>">About</a>
-            <a href="<?= base_url('/contact');?>">Kontak</a>
-        </nav>
+
+<div id="container">
+
+    <header>
+        <h1>Layout Sederhana</h1>
+    </header>
+
+    <nav>
+
+        <a href="<?= base_url('/'); ?>"
+           class="active">Home</a>
+
+        <a href="<?= base_url('/artikel'); ?>">
+            Artikel
+        </a>
+
+        <a href="<?= base_url('/about'); ?>">
+            About
+        </a>
+
+        <a href="<?= base_url('/contact'); ?>">
+            Kontak
+        </a>
+
+    </nav>
+
 <section id="wrapper">
+
 <section id="main">
 ```
 
-### Footer 
+---
+
+## Footer
+
+Buat file:
+
+```text
+app/Views/template/footer.php
 ```
+
+Isi file dengan kode berikut:
+
+```php
 </section>
 
 <aside id="sidebar">
+
     <div class="widget-box">
+
         <h3 class="title">Widget Header</h3>
+
         <ul>
             <li><a href="#">Widget Link</a></li>
             <li><a href="#">Widget Link</a></li>
         </ul>
+
     </div>
 
     <div class="widget-box">
+
         <h3 class="title">Widget Text</h3>
+
         <p>
-            Vestibulum lorem elit, iaculis in nisl volutpat,
+            Vestibulum lorem elit,
+            iaculis in nisl volutpat,
             malesuada tincidunt arcu.
         </p>
+
     </div>
+
 </aside>
 
 </section>
@@ -196,35 +460,69 @@ Ubah method pada abut di dalam class Controller page seperti berikut:
 </footer>
 
 </div>
+
 </body>
 </html>
 ```
 
-## Pertanyaan dan Tugas 
+---
 
-Lengkapi kode program untuk menu lainnya yang ada pada Controller Page, sehingga semua
-link pada navigasi header dapat menampilkan tampilan dengan layout yang sama.
+## Tampilan View
 
-Jawaban: 
+![Tampilan View](view.png)
 
-![Gambar Contact](Pict/contact.png)
+---
 
-- Buat File baru di dalam direktori (app/view) buat beberapa file yg dibutuhkan misalnya contact.php dan kemudian isi dengan berikut:
+# Pertanyaan dan Tugas
 
+## Soal
+
+Lengkapi kode program untuk menu lainnya yang ada pada Controller `Page`, sehingga seluruh link pada navigasi header dapat menampilkan tampilan dengan layout yang sama.
+
+---
+
+## Jawaban
+
+### Membuat File View Tambahan
+
+Buat beberapa file pada direktori:
+
+```text
+app/Views
 ```
+
+Contoh:
+
+- `contact.php`
+- `artikel.php`
+- `faqs.php`
+- `tos.php`
+
+Isi file view menggunakan layout yang sama:
+
+```php
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
+
     <title><?= $title; ?></title>
-    <link rel="stylesheet" href="<?= base_url('styles.css'); ?>">
+
+    <link rel="stylesheet"
+          href="<?= base_url('styles.css'); ?>">
+
 </head>
+
 <body>
 
 <?= $this->include('template/header.php'); ?>
 
 <h1><?= esc($title); ?></h1>
+
 <hr>
+
 <p><?= esc($content); ?></p>
 
 <?= $this->include('template/footer.php'); ?>
@@ -233,9 +531,11 @@ Jawaban:
 </html>
 ```
 
-Kemudian ubah kode pada Controller Page
+---
 
-```
+## Mengubah Controller Page
+
+```php
 <?php
 
 namespace App\Controllers;
@@ -245,109 +545,330 @@ class Page extends BaseController
     public function about()
     {
         return view('about', [
+
             'title' => 'Halaman About',
+
             'content' => 'Ini adalah halaman about yang menjelaskan tentang isi halaman ini.'
+
         ]);
     }
 
     public function contact()
     {
         return view('contact', [
+
             'title' => 'Halaman Contact',
+
             'content' => 'Ini adalah halaman contact.'
+
         ]);
     }
 
     public function artikel()
     {
         return view('artikel', [
+
             'title' => 'Halaman Artikel',
+
             'content' => 'Ini adalah halaman artikel.'
+
         ]);
     }
 
     public function faqs()
     {
         return view('faqs', [
+
             'title' => 'Halaman FAQ',
+
             'content' => 'Ini adalah halaman FAQ.'
+
         ]);
     }
 
     public function tos()
     {
         return view('tos', [
+
             'title' => 'Halaman Term of Services',
+
             'content' => 'Ini adalah halaman Term of Services.'
+
         ]);
     }
 }
 ```
-# Pratikum 2 - Pemrograman Web 2 (Framework Lanjutan CRUD) 
 
-## Persiapan 
-Untuk memulai pratikum membuat aplikasi CRUD sederhana, yang perlu disiapkan adalah database srver menggunakan MySQL. Pastikan MySQL dan apache sudah aktif 
+---
 
-## Membuat Database 
-Setelah membuat itu kita membuat database dengan nama lab_ci4 setelah itu kita membat tabel 
+## Tampilan Contact
 
-## Koneksi Database 
-Selanjutnya membuat konfigurasi database untuk menghubungkan dengan database server. Konfigurasi dapat dilakukan menggunakan file .env 
+![Halaman Contact](Pict/contact.png)
 
-![Gambar 1](Pict2/envdb.png)
+---
 
-## Membuat Model 
-Selanjutnya adalah membuat model untuk memproses data Artikel. Buat File baru pada direktori app/Models dengan nama ArtikelModel.php 
+# Kesimpulan
 
+Berdasarkan praktikum yang telah dilakukan, dapat disimpulkan bahwa:
+
+1. CodeIgniter 4 dapat diinstal dan dijalankan dengan mudah menggunakan Apache dan MySQL.
+2. CLI pada CodeIgniter membantu proses development menjadi lebih cepat dan efisien.
+3. Routing digunakan untuk mengatur URL aplikasi.
+4. Controller berfungsi mengelola request pengguna dan menghubungkannya dengan view.
+5. View digunakan untuk menampilkan tampilan halaman.
+6. Layout header dan footer membantu menjaga konsistensi tampilan aplikasi.
+
+---
+
+
+### Pemrograman Web 2 | Framework CodeIgniter 4
+
+
+# 🛠️ Praktikum 2 — Pemrograman Web 2 (Framework Lanjutan CRUD)
+
+> Pemrograman Web menggunakan Framework CodeIgniter 4
+
+---
+
+# 📚 Daftar Isi
+
+- [Pendahuluan](#pendahuluan)
+- [Teori Dasar](#teori-dasar)
+  - [1. CRUD](#1-crud)
+  - [2. MVC pada CodeIgniter 4](#2-mvc-pada-codeigniter-4)
+- [Langkah-langkah Praktikum](#langkah-langkah-praktikum)
+  - [1. Persiapan](#1-persiapan)
+  - [2. Membuat Database](#2-membuat-database)
+  - [3. Koneksi Database](#3-koneksi-database)
+  - [4. Membuat Model](#4-membuat-model)
+  - [5. Membuat Controller](#5-membuat-controller)
+  - [6. Membuat View](#6-membuat-view)
+  - [7. Membuat Tampilan Detail Artikel](#7-membuat-tampilan-detail-artikel)
+  - [8. Membuat Routing Artikel Detail](#8-membuat-routing-artikel-detail)
+  - [9. Membuat Menu Admin](#9-membuat-menu-admin)
+  - [10. Menambah Data Artikel](#10-menambah-data-artikel)
+  - [11. Mengubah Data Artikel](#11-mengubah-data-artikel)
+  - [12. Menghapus Data Artikel](#12-menghapus-data-artikel)
+- [Hasil Pengujian](#hasil-pengujian)
+- [Improvisasi](#improvisasi)
+- [Kesimpulan](#kesimpulan)
+
+---
+
+# Pendahuluan
+
+Pada praktikum ini dilakukan pengembangan aplikasi CRUD sederhana menggunakan framework **CodeIgniter 4**.
+
+CRUD merupakan operasi dasar dalam pengolahan data pada aplikasi berbasis database, yaitu:
+
+- Create
+- Read
+- Update
+- Delete
+
+Praktikum ini bertujuan untuk memahami implementasi konsep MVC (*Model-View-Controller*) pada framework CodeIgniter 4 serta memahami proses pengelolaan data menggunakan database MySQL.
+
+---
+
+# Teori Dasar
+
+## 1. CRUD
+
+CRUD adalah singkatan dari:
+
+| Operasi | Fungsi |
+|----------|---------|
+| Create | Menambahkan data |
+| Read | Menampilkan data |
+| Update | Mengubah data |
+| Delete | Menghapus data |
+
+CRUD merupakan konsep dasar yang hampir selalu digunakan dalam pengembangan aplikasi berbasis database.
+
+---
+
+## 2. MVC pada CodeIgniter 4
+
+CodeIgniter menggunakan pola arsitektur MVC (*Model-View-Controller*).
+
+| Komponen | Fungsi |
+|-----------|---------|
+| Model | Mengelola data dan database |
+| View | Menampilkan tampilan aplikasi |
+| Controller | Menghubungkan Model dan View |
+
+Dengan konsep MVC, struktur program menjadi lebih rapi, modular, dan mudah dikembangkan.
+
+---
+
+# Langkah-langkah Praktikum
+
+# 1. Persiapan
+
+Sebelum memulai praktikum, pastikan:
+
+- Apache sudah aktif
+- MySQL sudah berjalan
+- Framework CodeIgniter 4 sudah terinstall
+
+---
+
+# 2. Membuat Database
+
+Buat database dengan nama:
+
+```sql
+lab_ci4
 ```
+
+Kemudian buat tabel artikel sesuai kebutuhan aplikasi.
+
+---
+
+# 3. Koneksi Database
+
+Konfigurasi database dilakukan melalui file:
+
+```bash
+.env
+```
+
+Atur koneksi database sesuai konfigurasi MySQL yang digunakan.
+
+## Contoh Konfigurasi
+
+```env
+database.default.hostname = localhost
+database.default.database = lab_ci4
+database.default.username = root
+database.default.password =
+database.default.DBDriver = MySQLi
+```
+
+---
+
+## Tampilan Konfigurasi Database
+
+![Konfigurasi Database](Pict2/envdb.png)
+
+---
+
+# 4. Membuat Model
+
+Buat file berikut:
+
+```bash
+app/Models/ArtikelModel.php
+```
+
+Isi file dengan kode berikut:
+
+```php
 <?php
+
 namespace App\Models;
 
 use CodeIgniter\Model;
 
 class ArtikelModel extends Model
 {
-    protected $table = 'artikel';
-    protected $primaryKey = 'id';
+    protected $table            = 'artikel';
+    protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
-    protected $allowedFields = ['judul', 'isi', 'status', 'slug',
-    'gambar'];
+
+    protected $allowedFields = [
+        'judul',
+        'isi',
+        'status',
+        'slug',
+        'gambar'
+    ];
 }
 ```
 
-## Membuat Controller 
-Buatlah Controller baru dengan nama Artikel.php pada direktori app/Controllers
+---
 
+## Penjelasan Model
+
+| Property | Fungsi |
+|-----------|---------|
+| `$table` | Nama tabel database |
+| `$primaryKey` | Primary key tabel |
+| `$allowedFields` | Field yang dapat diisi |
+
+---
+
+# 5. Membuat Controller
+
+Buat file controller berikut:
+
+```bash
+app/Controllers/Artikel.php
 ```
+
+Isi file dengan kode berikut:
+
+```php
 <?php 
 
-namespace App\Controllers; 
+namespace App\Controllers;
 
 use App\Models\ArtikelModel;
 
-class Artikel extends BaseController 
+class Artikel extends BaseController
 {
     public function index()
     {
         $title = 'Daftar Artikel';
+
         $model = new ArtikelModel();
-        $artikel = $model -> findAll();
-        return view('artikel/index', compact('artikel', "title"));
+
+        $artikel = $model->findAll();
+
+        return view(
+            'artikel/index',
+            compact('artikel', 'title')
+        );
     }
 }
 ```
 
-# Membuat view 
-Membuat direktori baru dengan nama artikel pada direktori app/views, kemudian buat file baru dengan nama index.php.
+---
 
+## Penjelasan Controller
+
+| Method | Fungsi |
+|---------|---------|
+| `findAll()` | Mengambil seluruh data artikel |
+| `return view()` | Menampilkan halaman view |
+
+---
+
+# 6. Membuat View
+
+Buat folder berikut:
+
+```bash
+app/Views/artikel
 ```
+
+Kemudian buat file:
+
+```bash
+index.php
+```
+
+Isi file dengan kode berikut:
+
+```php
 <?= $this->include('template/header'); ?>
 
 <?php if ($artikel): ?>
-    
+
     <?php foreach ($artikel as $row): ?>
-        
+
         <article class="entry">
+
             <h2>
                 <a href="<?= base_url('/artikel/' . $row['slug']); ?>">
                     <?= $row['judul']; ?>
@@ -362,6 +883,7 @@ Membuat direktori baru dengan nama artikel pada direktori app/views, kemudian bu
             <p>
                 <?= substr($row['isi'], 0, 200); ?>
             </p>
+
         </article>
 
         <hr class="divider" />
@@ -379,72 +901,138 @@ Membuat direktori baru dengan nama artikel pada direktori app/views, kemudian bu
 <?= $this->include('template/footer'); ?>
 ```
 
-![Gambar 2](Pict2/artikelnodata.png) 
+---
 
-Selanjutnya kita akan menambah beberapa data pada database agar dapat ditampilkan datanya. 
+## Hasil Tampilan Awal
 
-![Gambar 3](Pict2/daftarartikel.png)
+![Artikel Belum Ada](Pict2/artikelnodata.png)
 
-## Membuat Tampilan detail Artikel 
+---
 
-Tampilan pada saat judul berita di klik maka akan diarahkan ke halaman yg berbeda. 
-```
-  public function view($slug)
-    {
-        $model = new ArtikelModel();
-        $artikel = $model ->where([
-            'slug' => $slug
-        ])->first();
+Setelah itu tambahkan beberapa data pada database agar artikel dapat ditampilkan.
 
-        // error apabila tidak ada data 
+## Tampilan Daftar Artikel
 
-        if (!$artikel)
-            {
-                throw PageNotFoundException:: forPageNotFound();
-            }
+![Daftar Artikel](Pict2/daftarartikel.png)
 
-            $title = $artikel['judul'];
-            return view('artikel/detail', compact('artikel', 'title'));
+---
+
+# 7. Membuat Tampilan Detail Artikel
+
+Tambahkan method berikut pada controller:
+
+```php
+public function view($slug)
+{
+    $model = new ArtikelModel();
+
+    $artikel = $model->where([
+        'slug' => $slug
+    ])->first();
+
+    // Error apabila data tidak ditemukan
+    if (!$artikel) {
+
+        throw PageNotFoundException::forPageNotFound();
     }
+
+    $title = $artikel['judul'];
+
+    return view(
+        'artikel/detail',
+        compact('artikel', 'title')
+    );
+}
 ```
 
-## Membuat View Detail 
+---
 
+# 8. Membuat View Detail
+
+Buat file berikut:
+
+```bash
+app/Views/artikel/detail.php
 ```
-<?= $this->include('template/header'); ?> 
+
+Isi file dengan kode berikut:
+
+```php
+<?= $this->include('template/header'); ?>
 
 <article class="entry">
+
     <h2><?= $artikel['judul']; ?></h2>
-    <img src="<?= base_url('/gambar/' . $artikel['gambar']);?>" alt="<?=$artikel['judul']; ?>">
+
+    <img 
+        src="<?= base_url('/gambar/' . $artikel['gambar']); ?>"
+        alt="<?= $artikel['judul']; ?>"
+    >
+
     <p><?= $artikel['isi']; ?></p>
+
 </article>
 
-<?= $this->include('template/footer'); ?> 
+<?= $this->include('template/footer'); ?>
 ```
-![Gambar 4](Pict2/detailartikel.png)
 
-## Membuat Routing untuk artikel detail 
-Membuat routing tambahan untuk artikel detail 
-```
+---
+
+## Hasil Tampilan Detail Artikel
+
+![Detail Artikel](Pict2/detailartikel.png)
+
+---
+
+# 9. Membuat Routing Artikel Detail
+
+Tambahkan routing berikut:
+
+```php
 $routes->get('/artikel/(:any)', 'Artikel::view/$1');
 ```
 
-## Membuat Menu Admin 
-Menu Admin adalah untuk proses CRUD data. buat method baru pada COntroller artikel denngan nama method admin_index()
+Routing digunakan agar artikel dapat diakses berdasarkan slug.
+
+---
+
+# 10. Membuat Menu Admin
+
+Tambahkan method berikut pada Controller:
+
+```php
+public function admin_index()
+{
+    $title = 'Daftar Artikel';
+
+    $model = new ArtikelModel();
+
+    $artikel = $model->findAll();
+
+    return view(
+        'artikel/admin_index',
+        compact('artikel', 'title')
+    );
+}
 ```
-  public function admin_index()
-    {
-        $title = 'Daftar Artikel';
-        $model = new ArtikelModel();
-        $artikel = $model->findAll();
-        return view('artikel/admin_index', compact('artikel', 'title'));
-    }
+
+---
+
+## Membuat View Admin
+
+Buat file:
+
+```bash
+app/Views/artikel/admin_index.php
 ```
-Langkah selanjutnya adalah membuat tampilan admin dengan nama file admin_index.php
-```
+
+Isi file dengan kode berikut:
+
+```php
 <?= $this->include('template/admin_header'); ?>
 
 <table class="table">
+
     <thead>
         <tr>
             <th>ID</th>
@@ -453,206 +1041,320 @@ Langkah selanjutnya adalah membuat tampilan admin dengan nama file admin_index.p
             <th>Aksi</th>
         </tr>
     </thead>
+
     <tbody>
+
         <?php if (!empty($artikel)) : ?>
+
             <?php foreach ($artikel as $row) : ?>
+
                 <tr>
+
                     <td><?= $row['id']; ?></td>
+
                     <td>
                         <b><?= esc($row['judul']); ?></b>
+
                         <p>
-                            <small><?= esc(substr($row['isi'], 0, 50)); ?>...</small>
+                            <small>
+                                <?= esc(substr($row['isi'], 0, 50)); ?>...
+                            </small>
                         </p>
                     </td>
+
                     <td><?= esc($row['status']); ?></td>
+
                     <td>
-                        <a class="btn" href="<?= base_url('admin/artikel/edit/' . $row['id']); ?>">
-                            Ubah
+
+                        <a class="btn"
+                           href="<?= base_url('admin/artikel/edit/' . $row['id']); ?>">
+                           Ubah
                         </a>
 
                         <a class="btn btn-danger"
                            onclick="return confirm('Yakin menghapus data?');"
                            href="<?= base_url('admin/artikel/delete/' . $row['id']); ?>">
-                            Hapus
+                           Hapus
                         </a>
+
                     </td>
+
                 </tr>
+
             <?php endforeach; ?>
+
         <?php else : ?>
+
             <tr>
-                <td colspan="4" class="text-center">Belum ada data.</td>
+                <td colspan="4" class="text-center">
+                    Belum ada data.
+                </td>
             </tr>
+
         <?php endif; ?>
+
     </tbody>
-    <tfoot>
-        <tr>
-            <th>ID</th>
-            <th>Judul</th>
-            <th>Status</th>
-            <th>Aksi</th>
-        </tr>
-    </tfoot>
+
 </table>
 
 <?= $this->include('template/admin_footer'); ?>
 ```
 
-kemudian tambah routing untuk menu admin 
-```
+---
+
+## Routing Admin
+
+Tambahkan routing berikut:
+
+```php
 $routes->group('admin', function($routes) {
-    $routes->get('artikel', 'Artikel::admin_index');
-    $routes->add('artikel/add', 'Artikel::add');
-    $routes->add('artikel/edit/(:any)', 'Artikel::edit/$1');
-    $routes->get('artikel/delete/(:any)', 'Artikel::delete/$1');
+
+    $routes->get(
+        'artikel',
+        'Artikel::admin_index'
+    );
+
+    $routes->add(
+        'artikel/add',
+        'Artikel::add'
+    );
+
+    $routes->add(
+        'artikel/edit/(:any)',
+        'Artikel::edit/$1'
+    );
+
+    $routes->get(
+        'artikel/delete/(:any)',
+        'Artikel::delete/$1'
+    );
 });
 ```
 
-![Gambar 5](Pict2/adminpage.png)
+---
 
-## Menambah Data Artikel 
+## Tampilan Menu Admin
 
-```
+![Menu Admin](Pict2/adminpage.png)
+
+---
+
+# 11. Menambah Data Artikel
+
+Tambahkan method berikut:
+
+```php
 public function add()
-    {
-        // Validasi input
-        $validation = \Config\Services::validation();
-        $validation->setRules([
-            'judul' => 'required'
-        ]);
+{
+    // Validasi input
+    $validation = \Config\Services::validation();
 
-        $isDataValid = $validation
-            ->withRequest($this->request)
-            ->run();
+    $validation->setRules([
+        'judul' => 'required'
+    ]);
 
-        if ($isDataValid)
-        {
-            $model = new ArtikelModel();
+    $isDataValid = $validation
+        ->withRequest($this->request)
+        ->run();
 
-            $model->insert([
-                'judul' => $this->request->getPost('judul'),
-                'isi'   => $this->request->getPost('isi'),
-                'slug'  => url_title(
-                    $this->request->getPost('judul'),
-                    '-', 
-                    true
-                ),
-            ]);
-
-            return redirect()->to('/admin/artikel');
-        }
-
-        $title = "Tambah Artikel";
-        return view('artikel/form_add', compact('title'));
-    }
-```
-Kemudian agar bisa melihat form tambah kita harus membuat file baru bernama form_add.php 
-
-```
-<?= $this->include('template/admin_header'); ?>
-
-<h2><?= $title; ?></h2>
-<form action="" method="post">
-    <p>
-    <input type="text" name="judul">
-    </p>
-
-    <p>
-    <textarea name="isi" cols="50" rows="10"></textarea>
-    </p>
-    <p><input type="submit" value="Kirim" class="btn btn-large"></p>
-</form>
-<?= $this->include('template/admin_footer'); ?>
-```
-
-![Gambar 6](Pict2/tambahartikel.png)
-
-## Mengubah Data 
-Tambahkan method baru pada controller dengan nama edit()
-```
- public function edit($id)
+    if ($isDataValid)
     {
         $model = new ArtikelModel();
 
-        // Ambil data lama terlebih dahulu
-        $data = $model->find($id);
-
-        if (!$data) {
-            throw new \CodeIgniter\Exceptions\PageNotFoundException("Data tidak ditemukan");
-        }
-
-        // Validasi input
-        $validation = \Config\Services::validation();
-        $validation->setRules([
-            'judul' => 'required'
+        $model->insert([
+            'judul' => $this->request->getPost('judul'),
+            'isi'   => $this->request->getPost('isi'),
+            'slug'  => url_title(
+                $this->request->getPost('judul'),
+                '-',
+                true
+            ),
         ]);
 
-        $isDataValid = $validation
-            ->withRequest($this->request)
-            ->run();
-
-        if ($isDataValid)
-        {
-            $model->update($id, [
-                'judul' => $this->request->getPost('judul'),
-                'isi'   => $this->request->getPost('isi'),
-                'slug'  => url_title(
-                    $this->request->getPost('judul'),
-                    '-', 
-                    true
-                ),
-            ]);
-
-            return redirect()->to('/admin/artikel');
-        }
-
-        $title = "Edit Artikel";
-        return view('artikel/form_edit', compact('title', 'data'));
+        return redirect()->to('/admin/artikel');
     }
+
+    $title = "Tambah Artikel";
+
+    return view('artikel/form_add', compact('title'));
+}
 ```
 
-Membuat view edit dengan cara membuat file baru dengan nama form_edit.php 
+---
+
+## Membuat Form Tambah
+
+Buat file:
+
+```bash
+app/Views/artikel/form_add.php
 ```
+
+Isi file dengan kode berikut:
+
+```php
+<?= $this->include('template/admin_header'); ?>
+
+<h2><?= $title; ?></h2>
+
+<form action="" method="post">
+
+    <p>
+        <input type="text" name="judul">
+    </p>
+
+    <p>
+        <textarea name="isi"
+                  cols="50"
+                  rows="10"></textarea>
+    </p>
+
+    <p>
+        <input type="submit"
+               value="Kirim"
+               class="btn btn-large">
+    </p>
+
+</form>
+
+<?= $this->include('template/admin_footer'); ?>
+```
+
+---
+
+## Tampilan Tambah Artikel
+
+![Tambah Artikel](Pict2/tambahartikel.png)
+
+---
+
+# 12. Mengubah Data Artikel
+
+Tambahkan method berikut:
+
+```php
+public function edit($id)
+{
+    $model = new ArtikelModel();
+
+    // Ambil data lama
+    $data = $model->find($id);
+
+    if (!$data) {
+
+        throw new \CodeIgniter\Exceptions\PageNotFoundException(
+            "Data tidak ditemukan"
+        );
+    }
+
+    // Validasi input
+    $validation = \Config\Services::validation();
+
+    $validation->setRules([
+        'judul' => 'required'
+    ]);
+
+    $isDataValid = $validation
+        ->withRequest($this->request)
+        ->run();
+
+    if ($isDataValid)
+    {
+        $model->update($id, [
+
+            'judul' => $this->request->getPost('judul'),
+
+            'isi' => $this->request->getPost('isi'),
+
+            'slug' => url_title(
+                $this->request->getPost('judul'),
+                '-',
+                true
+            ),
+        ]);
+
+        return redirect()->to('/admin/artikel');
+    }
+
+    $title = "Edit Artikel";
+
+    return view(
+        'artikel/form_edit',
+        compact('title', 'data')
+    );
+}
+```
+
+---
+
+## Membuat Form Edit
+
+Buat file:
+
+```bash
+app/Views/artikel/form_edit.php
+```
+
+Isi file dengan kode berikut:
+
+```php
 <?= $this->include('template/admin_header'); ?>
 
 <h2><?= esc($title); ?></h2>
 
 <form action="" method="post">
-    
+
     <?= csrf_field(); ?>
 
     <p>
+
         <input 
             type="text" 
-            name="judul" 
-            value="<?= esc($data['judul']); ?>" 
+            name="judul"
+            value="<?= esc($data['judul']); ?>"
             required
         >
+
     </p>
 
     <p>
-        <textarea 
-            name="isi" 
-            cols="50" 
+
+        <textarea
+            name="isi"
+            cols="50"
             rows="10"
         ><?= esc($data['isi']); ?></textarea>
+
     </p>
 
     <p>
-        <input 
-            type="submit" 
-            value="Kirim" 
+
+        <input
+            type="submit"
+            value="Kirim"
             class="btn btn-large"
         >
+
     </p>
 
 </form>
 
 <?= $this->include('template/admin_footer'); ?>
 ```
-![Gambar 7](Pict2/editartikel.png)
 
-## Menghapus Data 
-```
+---
+
+## Tampilan Edit Artikel
+
+![Edit Artikel](Pict2/editartikel.png)
+
+---
+
+# 13. Menghapus Data Artikel
+
+Tambahkan method berikut:
+
+```php
 public function delete($id)
 {
     $artikel = new ArtikelModel();
@@ -663,110 +1365,309 @@ public function delete($id)
 }
 ```
 
-## Pernyataan dan Tugas
+Method tersebut digunakan untuk menghapus data artikel berdasarkan ID.
 
-Selesaikan programnya sesuai Langkah-langkah yang ada. Anda boleh melakukan improvisasi.
+---
 
-![Gambar 8](Pict2/improv.png)
+# Hasil Pengujian
 
-Improvisasi yang saya lakukan adalah menambahkan total artikel serta fitur search agar memudahkan dalam mencari artikel
+## Fitur CRUD Berhasil
 
-# Pratikum 3 - View Layout dan View Cell 
+- Menampilkan data artikel
+- Menambah artikel baru
+- Mengubah artikel
+- Menghapus artikel
+- Menampilkan detail artikel
 
-Pratikum 3 menggunakan konsep View Layout dan View Cell untuk memudahkan dalam penggunaan layout. 
+Semua fitur berjalan dengan baik sesuai implementasi CRUD pada CodeIgniter 4.
 
-### Membuat Layout utama 
+---
 
-Buat folder layout di dalam app/views/, kemudian membuat file main.php di dalam folder layout dengan kode berikut. 
+# Improvisasi
 
+Pada praktikum ini dilakukan beberapa pengembangan tambahan, yaitu:
+
+- Menambahkan total artikel
+- Menambahkan fitur search
+- Mempermudah proses pencarian artikel
+
+Fitur tersebut membantu meningkatkan pengalaman pengguna dalam mengelola data artikel.
+
+---
+
+# Kesimpulan
+
+Berdasarkan praktikum yang telah dilakukan, dapat disimpulkan bahwa:
+
+1. CodeIgniter 4 mendukung implementasi CRUD dengan struktur MVC yang rapi.
+2. Model digunakan untuk mengelola data database.
+3. Controller berfungsi sebagai penghubung antara model dan view.
+4. View digunakan untuk menampilkan data kepada pengguna.
+5. Routing mempermudah pengelolaan URL aplikasi.
+6. Fitur CRUD merupakan dasar utama dalam pengembangan aplikasi berbasis database.
+
+---
+
+### Pemrograman Web | Framework CodeIgniter 4
+
+# 🧩 Praktikum 3 — View Layout dan View Cell
+
+> Pemrograman Web menggunakan Framework CodeIgniter 4
+
+---
+
+# 📚 Daftar Isi
+
+- [Pendahuluan](#pendahuluan)
+- [Teori Dasar](#teori-dasar)
+  - [1. View Layout](#1-view-layout)
+  - [2. View Cell](#2-view-cell)
+- [Langkah-langkah Praktikum](#langkah-langkah-praktikum)
+  - [1. Membuat Layout Utama](#1-membuat-layout-utama)
+  - [2. Modifikasi File View](#2-modifikasi-file-view)
+  - [3. Menampilkan Data Dinamis dengan View Cell](#3-menampilkan-data-dinamis-dengan-view-cell)
+  - [4. Membuat Class View Cell](#4-membuat-class-view-cell)
+  - [5. Membuat View untuk View Cell](#5-membuat-view-untuk-view-cell)
+- [Hasil Pengujian](#hasil-pengujian)
+- [Pertanyaan dan Tugas](#pertanyaan-dan-tugas)
+- [Kesimpulan](#kesimpulan)
+
+---
+
+# Pendahuluan
+
+Pada praktikum ini dilakukan pengembangan tampilan aplikasi menggunakan konsep:
+
+- View Layout
+- View Cell
+
+Kedua konsep tersebut digunakan untuk membuat struktur tampilan aplikasi menjadi lebih modular, rapi, dan mudah dikelola.
+
+Dengan menggunakan View Layout, seluruh halaman dapat memiliki tampilan yang konsisten tanpa harus menulis kode yang sama secara berulang. Sedangkan View Cell digunakan untuk membuat komponen tampilan dinamis yang dapat digunakan kembali (*reusable component*).
+
+---
+
+# Teori Dasar
+
+## 1. View Layout
+
+View Layout merupakan template utama (*master page*) yang digunakan untuk membungkus seluruh halaman aplikasi agar memiliki struktur tampilan yang konsisten.
+
+Biasanya layout berisi:
+
+- Header
+- Navbar
+- Sidebar
+- Footer
+- Section content
+
+### Manfaat View Layout
+
+| No | Manfaat |
+|----|----------|
+| 1 | Konsistensi tampilan UI/UX |
+| 2 | Mempermudah pengembangan |
+| 3 | Mengurangi duplikasi kode |
+| 4 | Mempermudah maintenance |
+| 5 | Mendukung konsep Separation of Concerns |
+
+---
+
+## 2. View Cell
+
+View Cell adalah komponen tampilan modular yang memiliki logika sendiri tanpa harus membebani controller utama.
+
+View Cell dapat:
+
+- Mengambil data langsung dari model
+- Memiliki proses query sendiri
+- Digunakan berulang pada berbagai halaman
+
+Konsep ini mirip seperti *mini-controller* yang fokus pada satu komponen tampilan tertentu.
+
+---
+
+# Langkah-langkah Praktikum
+
+# 1. Membuat Layout Utama
+
+Buat folder berikut:
+
+```bash
+app/Views/layout
 ```
+
+Kemudian buat file:
+
+```bash
+main.php
+```
+
+Isi file dengan kode berikut:
+
+```php
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
+
     <title><?= $title ?? 'My Website' ?></title>
-    <link rel="stylesheet" href="<?= base_url('styles.css'); ?>">
+
+    <link rel="stylesheet"
+          href="<?= base_url('styles.css'); ?>">
 </head>
+
 <body>
-    <div id="container">
-        
-        <header>
-            <h1>Layout Sederhana</h1>
-        </header>
 
-        <nav>
-            <a href="<?= base_url('/'); ?>" class="active">Home</a>
-            <a href="<?= base_url('/artikel'); ?>">Artikel</a>
-            <a href="<?= base_url('/about'); ?>">About</a>
-            <a href="<?= base_url('/contact'); ?>">Kontak</a>
-        </nav>
+<div id="container">
 
-        <section id="wrapper">
-            
-            <section id="main">
-                <?= $this->renderSection('content') ?>
-            </section>
+    <header>
+        <h1>Layout Sederhana</h1>
+    </header>
 
-            <aside id="sidebar">
-                
-                <?= view_cell('App\\Cells\\ArtikelTerkini::show') ?>
+    <nav>
 
-                <div class="widget-box">
-                    <h3 class="title">Widget Header</h3>
-                    <ul>
-                        <li><a href="#">Widget Link</a></li>
-                        <li><a href="#">Widget Link</a></li>
-                    </ul>
-                </div>
+        <a href="<?= base_url('/'); ?>"
+           class="active">
+           Home
+        </a>
 
-                <div class="widget-box">
-                    <h3 class="title">Widget Text</h3>
-                    <p>
-                        Vestibulum lorem elit, iaculis in nisl volutpat,
-                        malesuada tincidunt arcu. Proin in leo fringilla,
-                        vestibulum mi porta, faucibus felis. Integer pharetra
-                        est nunc, nec pretium nunc pretium ac.
-                    </p>
-                </div>
+        <a href="<?= base_url('/artikel'); ?>">
+            Artikel
+        </a>
 
-            </aside>
+        <a href="<?= base_url('/about'); ?>">
+            About
+        </a>
+
+        <a href="<?= base_url('/contact'); ?>">
+            Kontak
+        </a>
+
+    </nav>
+
+    <section id="wrapper">
+
+        <section id="main">
+
+            <?= $this->renderSection('content') ?>
 
         </section>
 
-        <footer>
-            <p>&copy; 2021 - Universitas Pelita Bangsa</p>
-        </footer>
+        <aside id="sidebar">
 
-    </div>
+            <?= view_cell('App\\Cells\\ArtikelTerkini::show') ?>
+
+            <div class="widget-box">
+
+                <h3 class="title">Widget Header</h3>
+
+                <ul>
+                    <li><a href="#">Widget Link</a></li>
+                    <li><a href="#">Widget Link</a></li>
+                </ul>
+
+            </div>
+
+            <div class="widget-box">
+
+                <h3 class="title">Widget Text</h3>
+
+                <p>
+                    Vestibulum lorem elit, iaculis in nisl volutpat,
+                    malesuada tincidunt arcu.
+                </p>
+
+            </div>
+
+        </aside>
+
+    </section>
+
+    <footer>
+        <p>&copy; 2021 - Universitas Pelita Bangsa</p>
+    </footer>
+
+</div>
+
 </body>
-</html> 
+</html>
 ```
 
-### Modifikasi File View 
+---
 
-Ubah app/Views/home.php agar sesuai dengan layout baru 
+## Penjelasan Layout
 
+| Bagian | Fungsi |
+|--------|---------|
+| `renderSection('content')` | Menampilkan isi halaman |
+| `view_cell()` | Menampilkan komponen View Cell |
+| `header`, `nav`, `footer` | Struktur utama layout |
+
+---
+
+# 2. Modifikasi File View
+
+Ubah file berikut:
+
+```bash
+app/Views/home.php
 ```
+
+Menjadi:
+
+```php
 <?= $this->extend('layout/main') ?>
 
 <?= $this->section('content') ?>
 
 <h1><?= $title; ?></h1>
+
 <hr>
+
 <p><?= $content; ?></p>
 
 <?= $this->endSection() ?>
 ```
 
-### Menampilkan Data Dinamis dengan VIew Cell 
+---
 
-View Cell adalah sebuah konsep untuk membuat komponen tampilan (view) yang bersifat modular, reusable, dan memiliki logika tersendiri tanpa harus membebani controller utama.
+## Penjelasan
 
-### Membuat Class View Cell 
+| Method | Fungsi |
+|---------|---------|
+| `extend()` | Menggunakan layout utama |
+| `section()` | Membuka section content |
+| `endSection()` | Menutup section |
 
-Buat folder Cells di dalam app/, kemudian file ArtikelTerkini.php di dalam app/Cells dengan kode berikut.
+---
 
+# 3. Menampilkan Data Dinamis dengan View Cell
+
+View Cell digunakan untuk membuat komponen tampilan yang bersifat modular dan dapat digunakan kembali.
+
+Pada praktikum ini, View Cell digunakan untuk menampilkan daftar artikel terbaru pada sidebar aplikasi.
+
+---
+
+# 4. Membuat Class View Cell
+
+Buat folder berikut:
+
+```bash
+app/Cells
 ```
+
+Kemudian buat file:
+
+```bash
+ArtikelTerkini.php
+```
+
+Isi file dengan kode berikut:
+
+```php
 <?php
 
 namespace App\Cells;
@@ -780,64 +1681,250 @@ class ArtikelTerkini extends Cell
     {
         $model = new ArtikelModel();
 
-        $artikel = $model->orderBy('created_at', 'DESC')
-                         ->limit(5)
-                         ->findAll();
+        $artikel = $model->orderBy(
+                        'created_at',
+                        'DESC'
+                    )
+                    ->limit(5)
+                    ->findAll();
 
-        return view('components/artikel_terkini', [
-            'artikel' => $artikel
-        ]);
+        return view(
+            'components/artikel_terkini',
+            [
+                'artikel' => $artikel
+            ]
+        );
     }
 }
 ```
 
-### Membuat View untuk View Cell 
+---
 
-Buat Folder components di dalam app/Views/, Kemudian buat file artikel_terkini.php di dalam app/Views/components dengan kode berikut: 
+## Penjelasan Program
 
+| Kode | Fungsi |
+|------|---------|
+| `orderBy()` | Mengurutkan artikel terbaru |
+| `limit(5)` | Membatasi jumlah artikel |
+| `findAll()` | Mengambil seluruh data |
+| `return view()` | Mengirim data ke view |
+
+---
+
+# 5. Membuat View untuk View Cell
+
+Buat folder berikut:
+
+```bash
+app/Views/components
 ```
+
+Kemudian buat file:
+
+```bash
+artikel_terkini.php
+```
+
+Isi file dengan kode berikut:
+
+```php
 <h3>Artikel Terkini</h3>
 
 <ul>
+
     <?php foreach ($artikel as $row): ?>
+
         <li>
             <a href="<?= base_url('/artikel/' . $row['slug']) ?>">
                 <?= $row['judul'] ?>
             </a>
         </li>
+
     <?php endforeach; ?>
+
 </ul>
 ```
 
-![Gambar 9](Pict3-4/home.png)
+---
 
-### Pertanyaan dan Tugas 
+# Hasil Pengujian
 
-- Sesuaikan data dengan praktikum sebelumnya, perlu melakukan perubahan field pada
-database dengan menambahkan tanggal agar dapat mengambil data artikel terbaru.
+## Tampilan Halaman Home
 
-![Gambar 10](Pict3-4/home.png)
+![Halaman Home](Pict3-4/home.png)
 
-- Selesaikan programnya sesuai Langkah-langkah yang ada. Anda boleh melakukan
-improvisasi.
+### Hasil yang Diperoleh
 
-- Apa manfaat utama dari penggunaan View Layout dalam pengembangan aplikasi?
-  
-  View Layout adalah template utama (master page) yang digunakan untuk membungkus konten halaman agar konsisten di seluruh aplikasi. Terdapat beberapa manfaat penggunaan view layout yaitu konsistensi UI/UX, Efisisnesi Development, Maintainability (Kemudahan Maintenance), Separation of Concerns (SoC), ntegrasi Komponen Lebih Mudah
+- Layout utama berhasil digunakan
+- Sidebar berhasil menampilkan artikel terbaru
+- View Cell berhasil mengambil data secara dinamis
+- Tampilan aplikasi menjadi lebih modular dan rapi
 
-- Jelaskan perbedaan antara View Cell dan View biasa.
+---
 
-  View Biasa adalah File tampilan yang hanya bertugas menampilkan data dari controller. Sedangkan View Cell adalah Komponen view yang memiliki logic sendiri (mini-controller) dan dapat mengambil data secara mandiri
+# Pertanyaan dan Tugas
 
-# Pratikum 4 - Framework Lanjutan (Modul Login)
+## 1. Menyesuaikan Database
 
-Pada pratikum 4 ini akan membuat modul login, hal yang perlu disiapkan adalah database  menggunakan MySQL. 
+Pada praktikum ini diperlukan penambahan field tanggal pada database agar sistem dapat mengambil artikel terbaru berdasarkan waktu pembuatan data.
 
-### Membuat Tabel User 
+Contoh field tambahan:
 
+```sql
+created_at DATETIME
 ```
+
+---
+
+## 2. Selesaikan Program Sesuai Langkah Praktikum
+
+Mahasiswa diperbolehkan melakukan improvisasi terhadap tampilan maupun struktur program agar aplikasi menjadi lebih menarik dan optimal.
+
+---
+
+## 3. Apa Manfaat Utama Penggunaan View Layout?
+
+View Layout merupakan template utama (*master page*) yang digunakan untuk membungkus seluruh halaman aplikasi agar memiliki tampilan yang konsisten.
+
+### Manfaat View Layout
+
+- Konsistensi UI/UX
+- Efisiensi development
+- Mengurangi duplikasi kode
+- Mempermudah maintenance
+- Mendukung Separation of Concerns (SoC)
+- Integrasi komponen menjadi lebih mudah
+
+---
+
+## 4. Jelaskan Perbedaan antara View Cell dan View Biasa
+
+| View Biasa | View Cell |
+|-------------|------------|
+| Hanya menampilkan data dari controller | Memiliki logika sendiri |
+| Bersifat pasif | Bersifat modular dan dinamis |
+| Tidak mengambil data sendiri | Dapat mengambil data langsung dari model |
+| Digunakan untuk tampilan umum | Digunakan untuk komponen reusable |
+
+View Cell dapat dianggap sebagai *mini-controller* yang fokus pada satu komponen tampilan tertentu.
+
+---
+
+# Kesimpulan
+
+Berdasarkan praktikum yang telah dilakukan, dapat disimpulkan bahwa:
+
+1. View Layout membantu membuat struktur tampilan aplikasi menjadi lebih konsisten dan rapi.
+2. View Cell mempermudah pembuatan komponen tampilan yang modular dan reusable.
+3. Penggunaan layout mengurangi duplikasi kode pada setiap halaman.
+4. View Cell memungkinkan pengambilan data secara mandiri tanpa membebani controller utama.
+5. CodeIgniter 4 menyediakan sistem templating yang mempermudah pengembangan aplikasi berbasis MVC.
+
+---
+
+### Pemrograman Web | Framework CodeIgniter 4
+
+# 🔐 Praktikum 4 — Framework Lanjutan (Modul Login)
+
+> Pemrograman Web menggunakan Framework CodeIgniter 4
+
+---
+
+# 📚 Daftar Isi
+
+- [Pendahuluan](#pendahuluan)
+- [Teori Dasar](#teori-dasar)
+  - [1. Sistem Login](#1-sistem-login)
+  - [2. Session](#2-session)
+  - [3. Database Seeder](#3-database-seeder)
+  - [4. Auth Filter](#4-auth-filter)
+- [Langkah-langkah Praktikum](#langkah-langkah-praktikum)
+  - [1. Membuat Tabel User](#1-membuat-tabel-user)
+  - [2. Membuat Model User](#2-membuat-model-user)
+  - [3. Membuat Controller User](#3-membuat-controller-user)
+  - [4. Membuat View Login](#4-membuat-view-login)
+  - [5. Membuat Database Seeder](#5-membuat-database-seeder)
+  - [6. Menambahkan Auth Filter](#6-menambahkan-auth-filter)
+  - [7. Percobaan Akses Menu Admin](#7-percobaan-akses-menu-admin)
+  - [8. Membuat Fungsi Logout](#8-membuat-fungsi-logout)
+- [Hasil Pengujian](#hasil-pengujian)
+- [Kesimpulan](#kesimpulan)
+
+---
+
+# Pendahuluan
+
+Pada praktikum ini dilakukan pengembangan aplikasi berbasis **CodeIgniter 4** dengan menambahkan fitur autentikasi pengguna (*authentication*), yaitu:
+
+- Login user
+- Session management
+- Database seeder
+- Auth filter
+- Logout system
+
+Fitur login sangat penting dalam sebuah aplikasi karena digunakan untuk membatasi akses pengguna terhadap halaman tertentu, khususnya halaman admin.
+
+Melalui praktikum ini, sistem autentikasi dibuat menggunakan database MySQL dan memanfaatkan fitur bawaan CodeIgniter 4.
+
+---
+
+# Teori Dasar
+
+## 1. Sistem Login
+
+Sistem login merupakan mekanisme autentikasi yang digunakan untuk memverifikasi identitas pengguna sebelum mengakses sistem.
+
+Proses login dilakukan dengan:
+
+1. Pengguna memasukkan email dan password
+2. Sistem memvalidasi data ke database
+3. Password diverifikasi menggunakan `password_verify()`
+4. Jika valid, session pengguna dibuat
+
+---
+
+## 2. Session
+
+Session digunakan untuk menyimpan data sementara pengguna selama masih terhubung dengan aplikasi.
+
+Pada praktikum ini, session digunakan untuk menyimpan:
+
+| Session | Fungsi |
+|----------|---------|
+| `user_id` | Menyimpan ID user |
+| `user_name` | Menyimpan nama user |
+| `user_email` | Menyimpan email user |
+| `logged_in` | Status login user |
+
+---
+
+## 3. Database Seeder
+
+Database Seeder merupakan fitur untuk mengisi database secara otomatis dengan data awal (*dummy data*).
+
+Seeder mempermudah proses development karena developer tidak perlu memasukkan data secara manual ke database.
+
+Pada praktikum ini, Seeder digunakan untuk membuat akun admin default.
+
+---
+
+## 4. Auth Filter
+
+Auth Filter digunakan untuk membatasi akses halaman tertentu agar hanya dapat diakses oleh pengguna yang sudah login.
+
+Jika pengguna belum login, maka sistem akan otomatis mengarahkan pengguna ke halaman login.
+
+---
+
+# Langkah-langkah Praktikum
+
+# 1. Membuat Tabel User
+
+Buat tabel `user` pada database MySQL menggunakan query berikut:
+
+```sql
 CREATE TABLE user (
-    id INT(11) auto_increment,
+    id INT(11) AUTO_INCREMENT,
     username VARCHAR(200) NOT NULL,
     useremail VARCHAR(200),
     userpassword VARCHAR(200),
@@ -845,9 +1932,28 @@ CREATE TABLE user (
 );
 ```
 
-### Membuat Model User 
+### Penjelasan Struktur Tabel
 
+| Field | Fungsi |
+|--------|---------|
+| `id` | Primary key user |
+| `username` | Nama pengguna |
+| `useremail` | Email pengguna |
+| `userpassword` | Password pengguna |
+
+---
+
+# 2. Membuat Model User
+
+Buat file:
+
+```bash
+app/Models/UserModel.php
 ```
+
+Isi file dengan kode berikut:
+
+```php
 <?php
 
 namespace App\Models;
@@ -856,18 +1962,41 @@ use CodeIgniter\Model;
 
 class UserModel extends Model
 {
-    protected $table = 'user';
-    protected $primaryKey = 'id';
+    protected $table            = 'user';
+    protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
-    protected $allowedFields = ['username', 'useremail', 'userpassword'];
+
+    protected $allowedFields = [
+        'username',
+        'useremail',
+        'userpassword'
+    ];
 }
 ```
-### Membuat Controller User
 
-Langkah Selanjutnya membuat Controller baru dengan nama User.php pada direktori app/controllers. Kemudian tambahkan method index() untuk menampilkan daftar user dan method login() untuk proses login. 
+### Penjelasan
 
+| Property | Fungsi |
+|-----------|---------|
+| `$table` | Menentukan nama tabel |
+| `$primaryKey` | Menentukan primary key |
+| `$allowedFields` | Field yang boleh diisi |
+
+---
+
+# 3. Membuat Controller User
+
+Buat file controller baru:
+
+```bash
+app/Controllers/User.php
 ```
+
+Kemudian isi dengan kode berikut:
+
+```php
 <?php
+
 namespace App\Controllers;
 
 use App\Models\UserModel;
@@ -877,7 +2006,9 @@ class User extends BaseController
     public function index()
     {
         $title = 'Daftar User';
+
         $model = new UserModel();
+
         $users = $model->findAll();
 
         return view('user/index', compact('users', 'title'));
@@ -887,7 +2018,7 @@ class User extends BaseController
     {
         helper(['form']);
 
-        $email = $this->request->getPost('email');
+        $email    = $this->request->getPost('email');
         $password = $this->request->getPost('password');
 
         if (!$email) {
@@ -895,109 +2026,185 @@ class User extends BaseController
         }
 
         $session = session();
+
         $model = new UserModel();
-        $login = $model->where('useremail', $email)->first();
+
+        $login = $model->where('useremail', $email)
+                       ->first();
 
         if ($login) {
+
             $pass = $login['userpassword'];
 
             if (password_verify($password, $pass)) {
+
                 $login_data = [
-                    'user_id' => $login['id'],
-                    'user_name' => $login['username'],
+                    'user_id'    => $login['id'],
+                    'user_name'  => $login['username'],
                     'user_email' => $login['useremail'],
-                    'logged_in' => TRUE,
+                    'logged_in'  => TRUE,
                 ];
 
                 $session->set($login_data);
 
                 return redirect()->to('admin/artikel');
+
             } else {
-                $session->setFlashdata("flash_msg", "Password salah.");
+
+                $session->setFlashdata(
+                    "flash_msg",
+                    "Password salah."
+                );
+
                 return redirect()->to('/login');
             }
+
         } else {
-            $session->setFlashdata("flash_msg", "Email tidak terdaftar.");
+
+            $session->setFlashdata(
+                "flash_msg",
+                "Email tidak terdaftar."
+            );
+
             return redirect()->to('/user/login');
         }
     }
 }
 ```
 
-### Membuat View Login 
+---
 
-Pada direktori app/views buat file baru dengan nama login.php 
+## Penjelasan Method Login
 
+| Method | Fungsi |
+|---------|---------|
+| `getPost()` | Mengambil input form |
+| `where()` | Mencari data berdasarkan email |
+| `password_verify()` | Memverifikasi password |
+| `session()->set()` | Menyimpan data session |
+| `redirect()->to()` | Mengalihkan halaman |
+
+---
+
+# 4. Membuat View Login
+
+Buat file berikut:
+
+```bash
+app/Views/login.php
 ```
+
+Isi file dengan kode berikut:
+
+```php
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+
     <title><?= $title ?? 'My Website' ?></title>
-    <link rel="stylesheet" href="<?= base_url('styles.css'); ?>">
+
+    <link rel="stylesheet"
+          href="<?= base_url('styles.css'); ?>">
 </head>
+
 <body>
-    <div id="container">
-        
-        <header>
-            <h1>Layout Sederhana</h1>
-        </header>
 
-        <nav>
-            <a href="<?= base_url('/'); ?>" class="active">Home</a>
-            <a href="<?= base_url('/artikel'); ?>">Artikel</a>
-            <a href="<?= base_url('/about'); ?>">About</a>
-            <a href="<?= base_url('/contact'); ?>">Kontak</a>
-        </nav>
+<div id="container">
 
-        <section id="wrapper">
-            
-            <section id="main">
-                <?= $this->renderSection('content') ?>
-            </section>
+    <header>
+        <h1>Layout Sederhana</h1>
+    </header>
 
-            <aside id="sidebar">
-                
-                <?= view_cell('App\\Cells\\ArtikelTerkini::show') ?>
+    <nav>
+        <a href="<?= base_url('/'); ?>" class="active">
+            Home
+        </a>
 
-                <div class="widget-box">
-                    <h3 class="title">Widget Header</h3>
-                    <ul>
-                        <li><a href="#">Widget Link</a></li>
-                        <li><a href="#">Widget Link</a></li>
-                    </ul>
-                </div>
+        <a href="<?= base_url('/artikel'); ?>">
+            Artikel
+        </a>
 
-                <div class="widget-box">
-                    <h3 class="title">Widget Text</h3>
-                    <p>
-                        Vestibulum lorem elit, iaculis in nisl volutpat,
-                        malesuada tincidunt arcu. Proin in leo fringilla,
-                        vestibulum mi porta, faucibus felis. Integer pharetra
-                        est nunc, nec pretium nunc pretium ac.
-                    </p>
-                </div>
+        <a href="<?= base_url('/about'); ?>">
+            About
+        </a>
 
-            </aside>
+        <a href="<?= base_url('/contact'); ?>">
+            Kontak
+        </a>
+    </nav>
 
+    <section id="wrapper">
+
+        <section id="main">
+            <?= $this->renderSection('content') ?>
         </section>
 
-        <footer>
-            <p>&copy; 2021 - Universitas Pelita Bangsa</p>
-        </footer>
+        <aside id="sidebar">
 
-    </div>
+            <?= view_cell('App\\Cells\\ArtikelTerkini::show') ?>
+
+            <div class="widget-box">
+
+                <h3 class="title">Widget Header</h3>
+
+                <ul>
+                    <li><a href="#">Widget Link</a></li>
+                    <li><a href="#">Widget Link</a></li>
+                </ul>
+
+            </div>
+
+            <div class="widget-box">
+
+                <h3 class="title">Widget Text</h3>
+
+                <p>
+                    Vestibulum lorem elit, iaculis in nisl volutpat,
+                    malesuada tincidunt arcu.
+                </p>
+
+            </div>
+
+        </aside>
+
+    </section>
+
+    <footer>
+        <p>&copy; 2021 - Universitas Pelita Bangsa</p>
+    </footer>
+
+</div>
+
 </body>
-</html> 
+</html>
 ```
 
-### Membuat Database Seeder
+---
 
-Dalam konteks pengembangan aplikasi (terutama pada framework seperti CodeIgniter), Database Seeder adalah mekanisme untuk mengisi database dengan data awal (dummy atau default) secara otomatis. Untuk mengaktifkan database seeder kita perlu membuka CLI dan menulis kan perintah sebagai berikut ```php spark make:seeder UserSeeder```
+# 5. Membuat Database Seeder
 
-Langkah Selanjutnya adalah mengisi file UserSeeder.php yang berada di lokasi direktori, lalu isi dengan kode berikut. 
+Database Seeder digunakan untuk mengisi database secara otomatis dengan data awal.
 
+Untuk membuat Seeder, buka terminal lalu jalankan perintah berikut:
+
+```bash
+php spark make:seeder UserSeeder
 ```
+
+---
+
+## Mengisi File UserSeeder
+
+Buka file:
+
+```bash
+app/Database/Seeds/UserSeeder.php
+```
+
+Isi file dengan kode berikut:
+
+```php
 <?php
 
 namespace App\Database\Seeds;
@@ -1014,23 +2221,40 @@ class UserSeeder extends Seeder
         $model->insert([
             'username'     => 'admin',
             'useremail'    => 'admin@email.com',
-            'userpassword' => password_hash('admin123', PASSWORD_DEFAULT),
+            'userpassword' => password_hash(
+                'admin123',
+                PASSWORD_DEFAULT
+            ),
         ]);
     }
 }
 ```
 
-![Gambar 11](Pict3-4/login.png)
+---
 
-Setelah kita mengisi file UserSeeds dengan kode tersebut langkah selanjutnya adalah kembali membuka CLI dan ketik perintah berikut: 
+## Menjalankan Seeder
 
-```
+Setelah file Seeder selesai dibuat, jalankan perintah berikut:
+
+```bash
 php spark db:seed UserSeeder
 ```
 
-### Menambahkan Auth Filter 
+Perintah tersebut akan otomatis menambahkan akun admin ke database.
 
+---
+
+# 6. Menambahkan Auth Filter
+
+Buat file berikut:
+
+```bash
+app/Filters/Auth.php
 ```
+
+Isi file dengan kode berikut:
+
+```php
 <?php
 
 namespace App\Filters;
@@ -1041,41 +2265,114 @@ use CodeIgniter\Filters\FilterInterface;
 
 class Auth implements FilterInterface
 {
-    public function before(RequestInterface $request, $arguments = null)
-    {
-        // jika user belum login
+    public function before(
+        RequestInterface $request,
+        $arguments = null
+    ) {
+
+        // Jika user belum login
         if (!session()->get('logged_in')) {
-            // maka redirect ke halaman login
+
+            // Redirect ke halaman login
             return redirect()->to('/user/login');
         }
     }
 
-    public function after(RequestInterface $request, ResponseInterface $response, $arguments = null)
-    {
+    public function after(
+        RequestInterface $request,
+        ResponseInterface $response,
+        $arguments = null
+    ) {
         // Do something here
     }
 }
 ```
 
-Selanjutnya buka file app/Config/Filter.php tambahkan kode ini 
+---
 
+## Registrasi Filter
+
+Buka file:
+
+```bash
+app/Config/Filters.php
 ```
+
+Tambahkan kode berikut:
+
+```php
 'auth' => App\Filters\Auth::class
 ```
 
-### Percobaan Akses Menu Admin 
+---
 
-![Gambar 12](Pict3-4/login.png)
+# 7. Percobaan Akses Menu Admin
 
-### Fungai Logout
+Setelah Auth Filter diterapkan, halaman admin hanya dapat diakses ketika pengguna berhasil login.
 
-```
+Jika pengguna belum login, maka sistem akan otomatis diarahkan ke halaman login.
+
+![Halaman Login](Pict3-4/login.png)
+
+---
+
+# 8. Membuat Fungsi Logout
+
+Tambahkan method berikut pada Controller `User.php`:
+
+```php
 public function logout()
 {
     session()->destroy();
+
     return redirect()->to('/user/login');
 }
 ```
+
+### Penjelasan
+
+| Method | Fungsi |
+|---------|---------|
+| `session()->destroy()` | Menghapus seluruh session |
+| `redirect()->to()` | Mengarahkan kembali ke halaman login |
+
+---
+
+# Hasil Pengujian
+
+## Login Berhasil
+
+- User berhasil login menggunakan email dan password
+- Session berhasil dibuat
+- Halaman admin dapat diakses
+
+## Login Gagal
+
+- Sistem menampilkan pesan error ketika password salah
+- Sistem menampilkan pesan error ketika email tidak ditemukan
+
+## Logout
+
+- Session berhasil dihapus
+- User otomatis keluar dari sistem
+
+---
+
+# Kesimpulan
+
+Berdasarkan praktikum yang telah dilakukan, dapat disimpulkan bahwa:
+
+1. Sistem login berfungsi untuk memverifikasi identitas pengguna sebelum mengakses sistem.
+2. Session digunakan untuk menyimpan status login pengguna.
+3. Database Seeder mempermudah pengisian data awal pada database.
+4. Auth Filter membantu membatasi akses halaman tertentu agar lebih aman.
+5. Fitur logout digunakan untuk menghapus session dan mengakhiri akses pengguna.
+
+Implementasi autentikasi pada CodeIgniter 4 membantu meningkatkan keamanan aplikasi serta mempermudah pengelolaan hak akses pengguna.
+
+---
+
+### Pemrograman Web | Framework CodeIgniter 4
 
 # 📘 Praktikum 5 — Pagination dan Pencarian
 
@@ -1433,8 +2730,6 @@ Berdasarkan praktikum yang telah dilakukan, dapat disimpulkan bahwa:
 5. Query Builder pada CodeIgniter 4 mempermudah proses manipulasi data secara aman dan terstruktur.
 
 ---
-
-# 📌 Praktikum 5 — Pagination dan Pencarian
 
 ### Pemrograman Web | Framework CodeIgniter 4
 
