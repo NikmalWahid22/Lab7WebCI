@@ -2016,4 +2016,115 @@ Agar kita bisa melihat gambar yang sudah kita tambahkan/edit kita perlu menambah
 ![Gambar 23](Pict3-4/gambar.png)
 
 
+# Pratikum 8: AJAX
+# 📡 AJAX — Asynchronous JavaScript and XML
+ 
+## Daftar Isi
+ 
+- [Pengertian AJAX](#pengertian-ajax)
+- [Cara Kerja AJAX](#cara-kerja-ajax)
+- [Komponen Utama AJAX](#komponen-utama-ajax)
+- [Contoh Penggunaan](#contoh-penggunaan)
+  - [1. Menggunakan XMLHttpRequest (Cara Lama)](#1-menggunakan-xmlhttprequest-cara-lama)
+  - [2. Menggunakan Fetch API (Modern)](#2-menggunakan-fetch-api-modern)
+  - [3. Menggunakan jQuery AJAX](#3-menggunakan-jquery-ajax)
+  - [4. Menggunakan Axios](#4-menggunakan-axios)
+- [Kelebihan dan Kekurangan](#kelebihan-dan-kekurangan)
+- [Kesimpulan](#kesimpulan)
+---
+ 
+## Pengertian AJAX
+ 
+**AJAX** (*Asynchronous JavaScript and XML*) adalah sekumpulan teknik pengembangan web yang memungkinkan aplikasi web berkomunikasi dengan server secara **asinkron** (di latar belakang) tanpa perlu memuat ulang (*reload*) halaman secara keseluruhan.
+ 
+Meskipun namanya mengandung kata "XML", data yang dikirim dan diterima tidak terbatas pada format XML saja. Saat ini, format **JSON** (*JavaScript Object Notation*) jauh lebih umum digunakan karena lebih ringan dan mudah diproses oleh JavaScript.
+ 
+> **Singkatnya:** AJAX memungkinkan halaman web untuk memperbarui sebagian konten secara dinamis tanpa harus me-refresh seluruh halaman.
+ 
+### Sejarah Singkat
+ 
+| Tahun | Peristiwa |
+|-------|-----------|
+| 1999  | Microsoft memperkenalkan `XMLHttpRequest` di Internet Explorer 5 |
+| 2004  | Google menggunakan teknik ini pada Gmail & Google Maps |
+| 2005  | Jesse James Garrett mempopulerkan istilah "AJAX" |
+| Kini  | Digantikan/disempurnakan oleh Fetch API, Axios, dan lainnya |
+ 
+---
+ 
+## Cara Kerja AJAX
+ 
+Berikut alur kerja AJAX secara keseluruhan:
+ 
+```
+┌─────────────┐        1. Event (klik, input, dll.)       ┌─────────────┐
+│             │ ─────────────────────────────────────────▶ │             │
+│   Browser   │        2. XMLHttpRequest / Fetch           │   Server    │
+│  (Client)   │ ─────────────────────────────────────────▶ │  (Backend)  │
+│             │                                             │             │
+│             │ ◀───────────────────────────────────────── │             │
+│             │        3. Response (JSON / XML / HTML)      │             │
+└─────────────┘                                             └─────────────┘
+       │
+       │  4. JavaScript memproses response
+       │  5. DOM diperbarui tanpa reload halaman
+       ▼
+┌─────────────┐
+│  Halaman    │
+│  Diperbarui │
+└─────────────┘
+```
+
+### Langkah-langkah Detail
+ 
+1. **Event Terjadi** — Pengguna melakukan aksi (klik tombol, mengetik di kolom pencarian, scroll, dll.)
+2. **Objek AJAX Dibuat** — JavaScript membuat objek `XMLHttpRequest` atau menggunakan `fetch()`
+3. **Request Dikirim** — Request HTTP (GET, POST, PUT, DELETE) dikirim ke server secara **asinkron**
+4. **Server Memproses** — Server menerima request, mengambil/mengolah data (database, API, dll.)
+5. **Response Dikembalikan** — Server mengirim response dalam format JSON, XML, HTML, atau teks
+6. **Callback Dijalankan** — JavaScript menerima response dan menjalankan fungsi callback
+7. **DOM Diperbarui** — Halaman diperbarui sebagian sesuai data yang diterima
+
+## Komponen Utama AJAX
+ 
+| Komponen | Peran |
+|----------|-------|
+| **HTML/CSS** | Tampilan antarmuka pengguna |
+| **JavaScript** | Logika pengiriman request dan pemrosesan response |
+| **XMLHttpRequest / Fetch API** | Objek/metode untuk komunikasi HTTP |
+| **Server-side (PHP, Node.js, dll.)** | Memproses request dan mengembalikan data |
+| **Format Data (JSON/XML)** | Format pertukaran data antara client dan server |
+ 
+---
+
+## Kelebihan dan Kekurangan
+ 
+### ✅ Kelebihan
+ 
+- **Pengalaman Pengguna Lebih Baik** — Halaman tidak perlu reload penuh, terasa lebih responsif seperti aplikasi desktop
+- **Hemat Bandwidth** — Hanya data yang dibutuhkan yang dikirim/diterima, bukan seluruh halaman
+- **Performa Lebih Cepat** — Server hanya memproses sebagian data, bukan seluruh halaman HTML
+- **Pemisahan Concerns** — Frontend dan backend dapat dikembangkan secara terpisah
+- **Interaktivitas Tinggi** — Memungkinkan fitur seperti live search, notifikasi real-time, infinite scroll
+### ❌ Kekurangan
+ 
+- **Masalah SEO** — Konten yang dimuat secara dinamis sulit diindeks oleh mesin pencari
+- **Tombol Back Browser** — Navigasi bisa bermasalah karena URL tidak selalu berubah
+- **Ketergantungan JavaScript** — Tidak berfungsi jika JavaScript dinonaktifkan di browser
+- **Kompleksitas Debugging** — Lebih sulit di-debug dibandingkan request halaman biasa
+- **Keamanan** — Rentan terhadap serangan seperti XSS dan CSRF jika tidak ditangani dengan benar
+---
+ 
+## Kesimpulan
+ 
+AJAX adalah fondasi dari pengalaman web modern yang kita nikmati sehari-hari — mulai dari pencarian Google yang muncul otomatis, feed media sosial yang ter-update tanpa refresh, hingga form yang tervalidasi secara real-time.
+ 
+Pilihan implementasi AJAX bergantung pada kebutuhan proyek:
+ 
+| Kebutuhan | Rekomendasi |
+|-----------|-------------|
+| Proyek sederhana / vanilla JS | `fetch()` dengan async/await |
+| Sudah menggunakan jQuery | `$.ajax()` atau shorthand jQuery |
+| Proyek besar / fitur lengkap | **Axios** |
+| Perlu support browser lama | `XMLHttpRequest` |
 
