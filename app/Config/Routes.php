@@ -16,6 +16,7 @@ $routes->get('/artikel', 'Artikel::index');
 $routes->get('/artikel/(:any)', 'Artikel::view/$1');
 $routes->get('/faqs', 'Page::faqs'); 
 $routes->get('/logout', 'User::logout');
+$routes->resource('post');
 
 // ADMIN
 $routes->group('admin', ['filter' => 'auth'], function($routes) {
