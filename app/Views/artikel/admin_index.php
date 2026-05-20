@@ -240,9 +240,26 @@ $(document).ready(function(){
         });
     });
 
+
     // ======================
-    // LOAD DATA AWAL
+    // PAGINATION CLICK
     // ======================
+    $(document).on('click', '#pagination-container a', function(e){
+
+        e.preventDefault();
+
+        let url = $(this).attr('href');
+
+        console.log("URL PAGINATION:", url);
+
+        if (!url) {
+            alert('URL kosong bro!');
+            return;
+        }
+
+        fetchData(url);
+    });
+    
     fetchData();
 
 });

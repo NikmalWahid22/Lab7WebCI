@@ -3732,14 +3732,14 @@ Berikut alur kerja AJAX secara keseluruhan:
 
 ## Kelebihan dan Kekurangan
  
-### ✅ Kelebihan
+### Kelebihan
  
 - **Pengalaman Pengguna Lebih Baik** — Halaman tidak perlu reload penuh, terasa lebih responsif seperti aplikasi desktop
 - **Hemat Bandwidth** — Hanya data yang dibutuhkan yang dikirim/diterima, bukan seluruh halaman
 - **Performa Lebih Cepat** — Server hanya memproses sebagian data, bukan seluruh halaman HTML
 - **Pemisahan Concerns** — Frontend dan backend dapat dikembangkan secara terpisah
 - **Interaktivitas Tinggi** — Memungkinkan fitur seperti live search, notifikasi real-time, infinite scroll
-### ❌ Kekurangan
+### Kekurangan
  
 - **Masalah SEO** — Konten yang dimuat secara dinamis sulit diindeks oleh mesin pencari
 - **Tombol Back Browser** — Navigasi bisa bermasalah karena URL tidak selalu berubah
@@ -3747,6 +3747,317 @@ Berikut alur kerja AJAX secara keseluruhan:
 - **Kompleksitas Debugging** — Lebih sulit di-debug dibandingkan request halaman biasa
 - **Keamanan** — Rentan terhadap serangan seperti XSS dan CSRF jika tidak ditangani dengan benar
 ---
+
+# Langkah-langkah Praktikum
+
+## 1. Persiapan Project
+
+Buka kembali project CodeIgniter sebelumnya yang telah dibuat pada praktikum sebelumnya.
+
+Pada praktikum ini akan ditambahkan fitur AJAX menggunakan pustaka jQuery agar data artikel dapat ditampilkan secara dinamis tanpa reload halaman.
+
+---
+
+## 2. Menambahkan Pustaka jQuery
+
+Download pustaka jQuery terbaru melalui website resmi:
+
+```text
+https://jquery.com
+```
+
+Kemudian ekstrak file dan salin:
+
+```text
+jquery-3.6.0.min.js
+```
+
+ke direktori:
+
+```text
+public/assets/js
+```
+
+Struktur folder:
+
+```text
+public/
+└── assets/
+    └── js/
+        └── jquery-3.6.0.min.js
+```
+
+---
+
+## 3. Membuat AJAX Controller
+
+Buat file controller baru:
+
+```text
+app/Controllers/AjaxController.php
+```
+
+Isi file dengan kode berikut:
+
+```php
+<?php
+
+namespace App\Controllers;
+
+use CodeIgniter\Controller;
+use App\Models\ArtikelModel;
+
+class AjaxController extends Controller
+{
+    public function index()
+    {
+        return view('ajax/index');
+    }
+
+    public function getData()
+    {
+        $model = new ArtikelModel();
+
+        $data = $model->findAll();
+
+        // Mengirim data dalam format JSON
+        return $this->response->setJSON($data);
+    }
+
+    public function delete($id)
+    {
+        $model = new ArtikelModel();
+
+        $model->delete($id);
+
+        $data = [
+            'status' => 'OK'
+        ];
+
+        // Mengirim response JSON
+        return $this->response->setJSON($data);
+    }
+}
+```
+
+---
+
+## Penjelasan Controller
+
+| Method | Fungsi |
+|---|---|
+| `index()` | Menampilkan halaman AJAX |
+| `getData()` | Mengambil data artikel dalam format JSON |
+| `delete($id)` | Menghapus data artikel berdasarkan ID |
+
+---
+
+## 4. Membuat View AJAX
+
+Buat folder:
+
+```text
+app/Views/ajax
+```
+
+Kemudian buat file:
+
+```text
+index.php
+```
+
+Isi file dengan kode berikut:
+
+```php
+<?= $this->include('template/header'); ?>
+
+<h1>Data Artikel</h1>
+
+<table class="table-data" id="artikelTable">
+
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Judul</th>
+            <th>Status</th>
+            <th>Aksi</th>
+        </tr>
+    </thead>
+
+    <tbody></tbody>
+
+</table>
+
+<script src="<?= base_url('assets/js/jquery-3.6.0.min.js') ?>"></script>
+
+<script>
+
+$(document).ready(function () {
+
+    // Menampilkan loading
+    function showLoadingMessage()
+    {
+        $('#artikelTable tbody').html(
+            '<tr><td colspan="4">Loading data...</td></tr>'
+        );
+    }
+
+    // Load data AJAX
+    function loadData()
+    {
+        showLoadingMessage();
+
+        $.ajax({
+
+            url: "<?= base_url('ajax/getData') ?>",
+
+            method: "GET",
+
+            dataType: "json",
+
+            success: function(data)
+            {
+                var tableBody = "";
+
+                for (var i = 0; i < data.length; i++)
+                {
+                    var row = data[i];
+
+                    tableBody += '<tr>';
+
+                    tableBody += '<td>' + row.id + '</td>';
+
+                    tableBody += '<td>' + row.judul + '</td>';
+
+                    tableBody += '<td><span class="status">---</span></td>';
+
+                    tableBody += '<td>';
+
+                    tableBody +=
+                        '<a href="<?= base_url('artikel/edit/') ?>'
+                        + row.id +
+                        '" class="btn btn-primary">Edit</a>';
+
+                    tableBody +=
+                        ' <a href="#" class="btn btn-danger btn-delete" data-id="'
+                        + row.id +
+                        '">Delete</a>';
+
+                    tableBody += '</td>';
+
+                    tableBody += '</tr>';
+                }
+
+                $('#artikelTable tbody').html(tableBody);
+            }
+        });
+    }
+
+    // Menjalankan load data
+    loadData();
+
+    // Delete AJAX
+    $(document).on('click', '.btn-delete', function(e)
+    {
+        e.preventDefault();
+
+        var id = $(this).data('id');
+
+        if (confirm('Apakah Anda yakin ingin menghapus artikel ini?'))
+        {
+            $.ajax({
+
+                url: "<?= base_url('ajax/delete/') ?>" + id,
+
+                method: "DELETE",
+
+                success: function(data)
+                {
+                    loadData();
+                },
+
+                error: function(jqXHR, textStatus, errorThrown)
+                {
+                    alert(
+                        'Error deleting article: '
+                        + textStatus
+                        + errorThrown
+                    );
+                }
+            });
+        }
+    });
+
+});
+
+</script>
+
+<?= $this->include('template/footer'); ?>
+```
+
+---
+
+## 5. Menampilkan Data dengan AJAX
+
+Pada saat halaman dibuka:
+
+1. JavaScript menjalankan fungsi `loadData()`
+2. AJAX request dikirim ke:
+
+```text
+/ajax/getData
+```
+
+3. Controller mengambil data artikel dari database
+4. Data dikirim dalam format JSON
+5. JavaScript menampilkan data ke tabel HTML secara dinamis
+
+---
+
+## 6. Menghapus Data Menggunakan AJAX
+
+Saat tombol delete ditekan:
+
+1. JavaScript mengambil ID artikel
+2. Menampilkan konfirmasi delete
+3. AJAX request DELETE dikirim ke server
+4. Controller menghapus data
+5. Tabel diperbarui otomatis tanpa reload halaman
+
+---
+
+# Pengujian Program
+
+## Tampilan Data AJAX
+
+![Data AJAX](Pict8/ajax-data.png)
+
+---
+
+## Pengujian Delete AJAX
+
+![Delete AJAX](Pict8/delete-ajax.png)
+
+---
+
+## Hasil Setelah Delete
+
+![Hasil Delete AJAX](Pict8/hasil-delete.png)
+
+---
+
+# Kesimpulan
+
+Pada praktikum ini berhasil dibuat implementasi AJAX menggunakan jQuery pada framework CodeIgniter 4.
+
+AJAX memungkinkan proses:
+
+- Menampilkan data secara dinamis
+- Menghapus data tanpa reload halaman
+- Mempercepat interaksi aplikasi
+- Meningkatkan user experience
+
+Dengan implementasi ini, aplikasi web menjadi lebih modern, responsif, dan efisien dalam proses pertukaran data antara client dan server.
  
 ## Kesimpulan
  
@@ -3760,5 +4071,305 @@ Pilihan implementasi AJAX bergantung pada kebutuhan proyek:
 | Sudah menggunakan jQuery | `$.ajax()` atau shorthand jQuery |
 | Proyek besar / fitur lengkap | **Axios** |
 | Perlu support browser lama | `XMLHttpRequest` |
+
+
+# ⚡ Praktikum 9 — AJAX dengan CodeIgniter 4
+
+## Daftar Isi
+
+- [Langkah-langkah Praktikum](#langkah-langkah-praktikum)
+  - [1. Persiapan](#1-persiapan)
+  - [2. Modifikasi Controller Artikel](#2-modifikasi-controller-artikel)
+  - [3. Modifikasi View admin_index.php](#3-modifikasi-view-admin_indexphp)
+- [Pertanyaan dan Tugas](#pertanyaan-dan-tugas)
+
+---
+
+## Langkah-langkah Praktikum
+
+### 1. Persiapan
+
+Sebelum memulai, pastikan hal-hal berikut sudah siap:
+
+- MySQL Server sudah berjalan
+- Database `lab_ci4` sudah dibuka
+- Tabel `artikel` dan `kategori` sudah ada dan terisi data
+- Library jQuery sudah terpasang atau dapat diakses melalui CDN
+
+---
+
+### 2. Modifikasi Controller Artikel
+
+Ubah method `admin_index()` di `Artikel.php` untuk mengembalikan data dalam format **JSON** jika request yang masuk adalah AJAX.
+
+**`app/Controllers/Artikel.php` — method `admin_index()`**
+
+```php
+public function admin_index()
+{
+    $title = 'Daftar Artikel (Admin)';
+    $model = new ArtikelModel();
+
+    $q           = $this->request->getVar('q') ?? '';
+    $kategori_id = $this->request->getVar('kategori_id') ?? '';
+    $page        = $this->request->getVar('page') ?? 1;
+
+    $builder = $model->table('artikel')
+        ->select('artikel.*, kategori.nama_kategori')
+        ->join('kategori', 'kategori.id_kategori = artikel.id_kategori');
+
+    if ($q != '') {
+        $builder->like('artikel.judul', $q);
+    }
+
+    if ($kategori_id != '') {
+        $builder->where('artikel.id_kategori', $kategori_id);
+    }
+
+    $artikel = $builder->paginate(10, 'default', $page);
+    $pager   = $model->pager;
+
+    $data = [
+        'title'       => $title,
+        'q'           => $q,
+        'kategori_id' => $kategori_id,
+        'artikel'     => $artikel,
+        'pager'       => $pager
+    ];
+
+    if ($this->request->isAJAX()) {
+        return $this->response->setJSON($data);
+    } else {
+        $kategoriModel    = new KategoriModel();
+        $data['kategori'] = $kategoriModel->findAll();
+        return view('artikel/admin_index', $data);
+    }
+}
+```
+
+**Penjelasan:**
+
+| Kode | Keterangan |
+|------|------------|
+| `$page = $this->request->getVar('page') ?? 1` | Mendapatkan nomor halaman dari request; default ke halaman 1 jika tidak ada |
+| `$builder->paginate(10, 'default', $page)` | Menerapkan pagination dengan nomor halaman yang diberikan |
+| `$this->request->isAJAX()` | Memeriksa apakah request yang datang adalah AJAX |
+| Response AJAX | Jika AJAX, kembalikan data artikel dan pager dalam format JSON |
+| Response biasa | Jika bukan AJAX, tampilkan view seperti biasa |
+
+---
+
+### 3. Modifikasi View admin_index.php
+
+Ubah view `admin_index.php` untuk menggunakan jQuery AJAX. Hapus kode yang menampilkan tabel artikel dan pagination secara langsung, lalu ganti dengan elemen container yang diisi secara dinamis oleh JavaScript.
+
+**`app/Views/artikel/admin_index.php`**
+
+```php
+<?= $this->include('template/admin_header'); ?>
+
+<h2><?= $title; ?></h2>
+
+<div class="row mb-3">
+    <div class="col-md-6">
+        <form id="search-form" class="form-inline">
+
+            <input 
+                type="text" 
+                name="q" 
+                id="search-box" 
+                value="<?= $q; ?>" 
+                placeholder="Cari judul artikel" 
+                class="form-control mr-2"
+            >
+
+            <select name="kategori_id" id="category-filter" class="form-control mr-2">
+                <option value="">Semua Kategori</option>
+                <?php foreach ($kategori as $k): ?>
+                    <option 
+                        value="<?= $k['id_kategori']; ?>" 
+                        <?= ($kategori_id == $k['id_kategori']) ? 'selected' : ''; ?>
+                    >
+                        <?= $k['nama_kategori']; ?>
+                    </option>
+                <?php endforeach; ?>
+            </select>
+
+            <input type="submit" value="Cari" class="btn btn-primary">
+
+        </form>
+    </div>
+</div>
+
+<!-- Container artikel dan pagination diisi oleh AJAX -->
+<div id="article-container"></div>
+<div id="pagination-container"></div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() {
+
+    const articleContainer    = $('#article-container');
+    const paginationContainer = $('#pagination-container');
+    const searchForm          = $('#search-form');
+    const searchBox           = $('#search-box');
+    const categoryFilter      = $('#category-filter');
+
+    // Fungsi utama untuk mengambil data via AJAX
+    const fetchData = (url) => {
+        $.ajax({
+            url: url,
+            type: 'GET',
+            dataType: 'json',
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest'
+            },
+            success: function(data) {
+                renderArticles(data.artikel);
+                renderPagination(data.pager, data.q, data.kategori_id);
+            }
+        });
+    };
+
+    // Render tabel artikel
+    const renderArticles = (articles) => {
+        let html = '<table class="table">';
+        html += '<thead><tr><th>ID</th><th>Judul</th><th>Kategori</th><th>Status</th><th>Aksi</th></tr></thead><tbody>';
+
+        if (articles.length > 0) {
+            articles.forEach(article => {
+                html += `
+                    <tr>
+                        <td>${article.id}</td>
+                        <td>
+                            <b>${article.judul}</b>
+                            <p><small>${article.isi.substring(0, 50)}</small></p>
+                        </td>
+                        <td>${article.nama_kategori}</td>
+                        <td>${article.status}</td>
+                        <td>
+                            <a class="btn btn-sm btn-info" href="/admin/artikel/edit/${article.id}">Ubah</a>
+                            <a class="btn btn-sm btn-danger" 
+                               onclick="return confirm('Yakin menghapus data?');" 
+                               href="/admin/artikel/delete/${article.id}">Hapus</a>
+                        </td>
+                    </tr>
+                `;
+            });
+        } else {
+            html += '<tr><td colspan="5">Tidak ada data.</td></tr>';
+        }
+
+        html += '</tbody></table>';
+        articleContainer.html(html);
+    };
+
+    // Render pagination
+    const renderPagination = (pager, q, kategori_id) => {
+        let html = '<nav><ul class="pagination">';
+
+        pager.links.forEach(link => {
+            let url = link.url 
+                ? `${link.url}&q=${q}&kategori_id=${kategori_id}` 
+                : '#';
+            html += `
+                <li class="page-item ${link.active ? 'active' : ''}">
+                    <a class="page-link" href="${url}">${link.title}</a>
+                </li>
+            `;
+        });
+
+        html += '</ul></nav>';
+        paginationContainer.html(html);
+    };
+
+    // Submit form pencarian
+    searchForm.on('submit', function(e) {
+        e.preventDefault();
+        const q           = searchBox.val();
+        const kategori_id = categoryFilter.val();
+        fetchData(`/admin/artikel?q=${q}&kategori_id=${kategori_id}`);
+    });
+
+    // Filter kategori berubah → langsung submit
+    categoryFilter.on('change', function() {
+        searchForm.trigger('submit');
+    });
+
+    // Load data saat halaman pertama kali dibuka
+    fetchData('/admin/artikel');
+
+});
+</script>
+
+<?= $this->include('template/admin_footer'); ?>
+```
+
+---
+
+## Pertanyaan dan Tugas
+
+### 1. Selesaikan semua langkah praktikum di atas.
+
+### 2. Modifikasi tampilan data artikel dan pagination sesuai kebutuhan desain.
+
+Sesuaikan struktur HTML pada fungsi `renderArticles()` dan `renderPagination()` di dalam script jQuery agar tampilan sesuai dengan desain yang diinginkan.
+
+### 3. Tambahkan indikator loading saat data sedang diambil dari server.
+
+Tambahkan elemen loading dan tampilkan saat AJAX request dimulai, lalu sembunyikan setelah data berhasil dimuat:
+
+```javascript
+// Tambahkan elemen loading di HTML
+// <div id="loading" style="display:none;">Memuat data...</div>
+
+const fetchData = (url) => {
+    $('#loading').show(); // Tampilkan loading
+    $.ajax({
+        url: url,
+        type: 'GET',
+        dataType: 'json',
+        headers: { 'X-Requested-With': 'XMLHttpRequest' },
+        success: function(data) {
+            renderArticles(data.artikel);
+            renderPagination(data.pager, data.q, data.kategori_id);
+            $('#loading').hide(); // Sembunyikan loading
+        }
+    });
+};
+```
+
+### 4. Implementasikan fitur sorting dengan AJAX.
+
+Tambahkan parameter `sort` dan `order` pada request untuk mengurutkan artikel berdasarkan kolom tertentu:
+
+```javascript
+// Tambahkan dropdown sorting di HTML
+// <select id="sort-by">
+//     <option value="judul">Judul</option>
+//     <option value="id">ID</option>
+// </select>
+
+const fetchData = (url) => {
+    const sortBy = $('#sort-by').val();
+    const order  = $('#sort-order').val() ?? 'ASC';
+    $.ajax({
+        url: `${url}&sort=${sortBy}&order=${order}`,
+        // ...
+    });
+};
+```
+
+Lalu tambahkan logika sorting di Controller:
+
+```php
+$sort  = $this->request->getVar('sort') ?? 'artikel.id';
+$order = $this->request->getVar('order') ?? 'ASC';
+$builder->orderBy($sort, $order);
+```
+
+---
+
+*Laporan Praktikum 9 — AJAX dengan CodeIgniter 4 | Pemrograman Web*
 
 
